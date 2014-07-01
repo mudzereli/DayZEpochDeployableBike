@@ -4,8 +4,8 @@ if(player getVariable["combattimeout", 0] >= time) exitWith {
     taskHint ["Can't pack bike while in combat!", [0.972549,0.121568,0,1], "taskFailed"];
 };
 
-_lastPackTime = cursorTarget getVariable["lastPackTime",diag_tickTime - 10];
-_isPackingLocked = diag_tickTime - _lastPackTime < 8;
+_lastPackTime = cursorTarget getVariable["lastPackTime",diag_tickTime - 11];
+_isPackingLocked = diag_tickTime - _lastPackTime < 10;
 if(_isPackingLocked) exitWith {
     taskHint ["Someone just tried to pack that bike! Try again in a few seconds.", [0.972549,0.121568,0,1], "taskFailed"];
 };

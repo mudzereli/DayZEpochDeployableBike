@@ -15,7 +15,7 @@ This is used to register right click actions on items. Required by other addons.
 -----
 
 ##Installation
- 1. extract the contents of the zip file into your mission file root
+ 1. extract the **addons** and **overwrites** folder from the downloaded zip file into your mission file root
  2. add these lines to the end of your mission file init.sqf.
       
 ```call compile preprocessFileLineNumbers "overwrites\click_actions\init.sqf";```
