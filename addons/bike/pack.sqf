@@ -1,4 +1,4 @@
-private["_isPackingLocked","_lastPackTime"];
+private["_isPackingLocked","_lastPackTime","_exitWith"];
 
 if(player getVariable["combattimeout", 0] >= time) exitWith {
     taskHint ["Can't pack bike while in combat!", [0.972549,0.121568,0,1], "taskFailed"];
@@ -37,18 +37,28 @@ while {!_isLoopDone} do {
         _isLoopDone = true;
         _isAnimationCompleted = true;
     };
-    if (r_interrupt or (player getVariable["combattimeout", 0] >= time)) then {
+    if(r_interrupt) then {
+        _exitWith = "Bike packing interrupted!";
+    } else if(player getVariable["combattimeout", 0] >= time) then {
+        _exitWith = "Can't pack a bike while in combat!";
+    };
+    if (!(isNil "_exitWith")) then {
         _isLoopDone = true;
         player switchMove "";
         player playActionNow "stop";
     };
-    sleep 0.1;
+    sleep 0.3;
 };
 
-if(_isAnimationCompleted) then {
-    player addWeapon "ItemToolbox";
-    deleteVehicle cursortarget;
-    taskHint ["You packed your bike back into your toolbox.", [0.600000,0.839215,0.466666,1], "taskDone"];
-} else {
-    taskHint ["Bike packing cancelled!", [0.972549,0.121568,0,1], "taskFailed"];
+if(!(isNil "_exitWith")) exitWith {
+    taskHint [_exitWith, [0.972549,0.121568,0,1], "taskFailed"];
 };
+
+if(!_isAnimationCompleted) exitWith {
+    taskHint ["Bike packing failed!", [0.972549,0.121568,0,1], "taskFailed"];
+};
+
+player addWeapon "ItemToolbox";
+deleteVehicle cursortarget;
+
+taskHint ["You packed your bike back into your toolbox.", [0.600000,0.839215,0.466666,1], "taskDone"];

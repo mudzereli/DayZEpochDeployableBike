@@ -5,6 +5,7 @@
         diag_log text "BIKE: adding bike to safe vehicle list...";
         DZE_safeVehicle = DZE_safeVehicle + ["MMT_Civ"];
     };
+    call compile preprocessFileLineNumbers "addons\bike\functions.sqf";
     DZE_CLICK_ACTIONS = DZE_CLICK_ACTIONS + [["ItemToolbox","Deploy Bike","execVM 'addons\bike\deploy.sqf';"]];
     DZE_BIKE_DEPLOYING = false;
     diag_log text "BIKE: waiting for login...";
