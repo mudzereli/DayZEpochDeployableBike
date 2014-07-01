@@ -41,6 +41,11 @@ while {!_isLoopDone} do {
     sleep 0.1;
 };
 
+if(!(player hasWeapon "ItemToolbox")) exitWith {
+    DZE_BIKE_DEPLOYING = false;
+    taskHint ["You a toolbox to build a bike.", [0.972549,0.121568,0,1], "taskFailed"];
+};
+
 if (_isAnimationCompleted) then {
     player removeWeapon "ItemToolbox";
     _object = "MMT_Civ" createVehicle (position player);
