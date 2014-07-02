@@ -15,7 +15,7 @@ _isPackingLocked = diag_tickTime - _lastPackTime < 10;
     };
 } forEach [
     [!(call fnc_can_do),                               format["You can't pack your %1 right now.",(_deployable call getDeployableDisplay)]],
-    [(player getVariable["combattimeout", 0]) >= time, format["Can't build a %1 while in combat!",(_deployable call getDeployableDisplay)]],
+    [(player getVariable["combattimeout", 0]) >= time, format["Can't pack a %1 while in combat!",(_deployable call getDeployableDisplay)]],
     [_isPackingLocked,                                 format["Someone just tried to pack that %1! Try again in a few seconds.",(_deployable call getDeployableDisplay)]]
 ];
 

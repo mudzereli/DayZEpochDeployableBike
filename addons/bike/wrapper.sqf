@@ -2,12 +2,27 @@
 
 /* this gets the item that makes the deployable */
 getDeployableKitClass = {
-    ((DZE_DEPLOYABLES select _this) select 1) select 0
+    (DZE_DEPLOYABLES select _this) select 0
 };
 
 /* this gets what type of item the kit is*/
 getDeployableKitType = {
-    ((DZE_DEPLOYABLES select _this) select 1) select 1
+    (DZE_DEPLOYABLES select _this) select 1
+};
+
+/* this gets the class of the deployable */
+getDeployableClass = {
+    (DZE_DEPLOYABLES select _this) select 2
+};
+
+/* this gets the distance of the deployable */
+getDeployableDistance = {
+    (DZE_DEPLOYABLES select _this) select 3
+};
+
+/* this gets the direction offset of the deployable (basically this direction)*/
+getDeployableDirectionOffset = {
+    (DZE_DEPLOYABLES select _this) select 4
 };
 
 /* this gets the display name of the kit */
@@ -21,16 +36,6 @@ getDeployableKitDisplay = {
     };
     diag_log text format["BIKE: post patch check: display = %1",_display];
     _display
-};
-
-/* this gets the class of the deployable */
-getDeployableClass = {
-    ((DZE_DEPLOYABLES select _this) select 0) select 0
-};
-
-/* this gets the comparable (same) classes of the deployable */
-getDeployableMatchClasses = {
-    ((DZE_DEPLOYABLES select _this) select 0) select 1
 };
 
 /* this gets the display name of the deployable */

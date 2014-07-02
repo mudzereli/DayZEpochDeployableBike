@@ -1,4 +1,10 @@
-private["_exitWith"];
+private["_exitWith","_position","_display"];
+
+disableSerialization;
+_display = findDisplay 106;
+if(!(isNull _display)) then {
+    _display closeDisplay 0;
+};
 
 _exitWith = "nil";
 
@@ -10,7 +16,7 @@ _exitWith = "nil";
     [!(call fnc_can_do),                                                               format["You can't build a %1 right now.",(_this call getDeployableDisplay)]],
     [(player getVariable["combattimeout", 0]) >= time,                                 format["Can't build a %1 while in combat!",(_this call getDeployableDisplay)]],
     [!((_this call getDeployableKitClass) in ((weapons player) + (magazines player))), format["You need a %1 to build a %2!",(_this call getDeployableKitDisplay),(_this call getDeployableDisplay)]],
-    [DZE_DEPLOYING,                                                                    format["You are already building a %1!",(_this call getDeployableDisplay)]]
+    [DZE_DEPLOYING,                                                                    "You are already building something!"]
 ];
 
 if(_exitWith != "nil") exitWith {
@@ -32,7 +38,9 @@ if(_exitWith != "nil") exitWith {
 
 player removeWeapon (_this call getDeployableKitClass);
 player removeMagazine (_this call getDeployableKitClass);
-_object = (_this call getDeployableClass) createVehicle (position player);
+_object = (_this call getDeployableClass) createVehicle (player modelToWorld [0,(_this call getDeployableDistance),0]);
+_object setPos [((position _object) select 0),((position _object) select 1),0];
+_object setDir ((getDir player) + (_this call getDeployableDirectionOffset));
 _object setVariable ["ObjectID", "1", true];
 _object setVariable ["ObjectUID", "1", true];
 _object setVariable ["DeployedBy",getPlayerUID player,true];
