@@ -15,6 +15,10 @@ _isPackingLocked = diag_tickTime - _lastPackTime < 10;
     [_isPackingLocked,                                 "Someone just tried to pack that bike! Try again in a few seconds."]
 ];
 
+if(!(isNil "_exitWith")) exitWith {
+    taskHint [_exitWith, [0.972549,0.121568,0,1], "taskFailed"];
+};
+
 cursorTarget setVariable["lastPackTime",diag_tickTime,true];
 player removeAction DZE_ACTION_BIKE_PACK;
 
