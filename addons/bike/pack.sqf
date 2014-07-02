@@ -1,8 +1,12 @@
-private["_isPackingLocked","_lastPackTime","_exitWith"];
+private["_isPackingLocked","_lastPackTime","_exitWith","_deployable","_cursorTarget"];
+
+_deployable = (_this select 3) select 0;
+_cursorTarget = (_this select 3) select 1;
 
 _exitWith = "nil";
 
-_lastPackTime = cursorTarget getVariable["lastPackTime",diag_tickTime - 11];
+// fix this -- use object passing because cursortarget can change
+_lastPackTime = _cursorTarget getVariable["lastPackTime",diag_tickTime - 11];
 _isPackingLocked = diag_tickTime - _lastPackTime < 10;
 
 {
@@ -10,32 +14,32 @@ _isPackingLocked = diag_tickTime - _lastPackTime < 10;
         _exitWith = (_x select 1);
     };
 } forEach [
-    [!(call fnc_can_do),                               format["You can't pack your %1 right now.",DZE_DEPLOYABLE_BIKE_CLASS_DISPLAY]],
-    [(player getVariable["combattimeout", 0]) >= time, format["Can't build a %1 while in combat!",DZE_DEPLOYABLE_BIKE_CLASS_DISPLAY]],
-    [_isPackingLocked,                                 format["Someone just tried to pack that %1! Try again in a few seconds.",DZE_DEPLOYABLE_BIKE_CLASS_DISPLAY]]
+    [!(call fnc_can_do),                               format["You can't pack your %1 right now.",(_deployable call getDeployableDisplay)]],
+    [(player getVariable["combattimeout", 0]) >= time, format["Can't build a %1 while in combat!",(_deployable call getDeployableDisplay)]],
+    [_isPackingLocked,                                 format["Someone just tried to pack that %1! Try again in a few seconds.",(_deployable call getDeployableDisplay)]]
 ];
 
 if(_exitWith != "nil") exitWith {
     taskHint [_exitWith, DZE_COLOR_DANGER, "taskFailed"];
 };
 
-cursorTarget setVariable["lastPackTime",diag_tickTime,true];
-player removeAction DZE_ACTION_BIKE_PACK;
+_cursorTarget setVariable["lastPackTime",diag_tickTime,true];
+player removeAction DZE_ACTION_DEPLOYABLE_PACK;
 
 _exitWith = [
-    [{r_interrupt},                                      format["Packing %1 interrupted!",DZE_DEPLOYABLE_BIKE_CLASS_DISPLAY]],
-    [{(player getVariable["combattimeout", 0]) >= time}, format["Can't pack a %1 while in combat!",DZE_DEPLOYABLE_BIKE_CLASS_DISPLAY]]
+    ["r_interrupt",                                      format["Packing %1 interrupted!",(_deployable call getDeployableDisplay)]],
+    ["(player getVariable['combattimeout', 0]) >= time", format["Can't pack a %1 while in combat!",(_deployable call getDeployableDisplay)]]
 ] call fnc_bike_crafting_animation;
 
 if(_exitWith != "nil") exitWith {
     taskHint [_exitWith, DZE_COLOR_DANGER, "taskFailed"];
 };
 
-if(DZE_DEPLOYABLE_BIKE_KIT_TYPE == "CfgWeapons") then {
-    player addWeapon DZE_DEPLOYABLE_BIKE_KIT;
+if((_deployable call getDeployableKitType) == "CfgWeapons") then {
+    player addWeapon (_deployable call getDeployableKitClass);
 } else {
-    player addMagazine DZE_DEPLOYABLE_BIKE_KIT;
+    player addMagazine (_deployable call getDeployableKitClass);
 };
-deleteVehicle cursortarget;
+deleteVehicle _cursorTarget;
 
-taskHint [format["You packed your %1 back into your %2.",DZE_DEPLOYABLE_BIKE_CLASS_DISPLAY,DZE_DEPLOYABLE_BIKE_KIT_DISPLAY], DZE_COLOR_PRIMARY, "taskDone"];
+taskHint [format["You packed your %1 back into your %2.",(_deployable call getDeployableDisplay),(_deployable call getDeployableKitDisplay)], DZE_COLOR_PRIMARY, "taskDone"];

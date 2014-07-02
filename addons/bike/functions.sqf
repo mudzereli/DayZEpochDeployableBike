@@ -32,7 +32,7 @@ fnc_bike_crafting_animation = {
             _isAnimationCompleted = true;
         };
         {
-            if(call (_x select 0)) then {
+            if(call compile (_x select 0)) then {
                 _exitWith = _x select 1;
             };
         } forEach _this;
