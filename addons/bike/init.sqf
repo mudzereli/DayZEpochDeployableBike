@@ -1,13 +1,8 @@
 [] spawn {
 
     call compile preprocessFileLineNumbers "addons\bike\config.sqf";
-    
-    DZE_DEPLOYABLE_BIKE_KIT_DISPLAY = "ERROR";
-    if(DZE_DEPLOYABLE_BIKE_KIT in getArray(configFile >> "CfgWeapons")) then {
-        DZE_DEPLOYABLE_BIKE_KIT_DISPLAY = getText (configFile >> "CfgWeapons" >> DZE_DEPLOYABLE_BIKE_KIT >> "displayName");
-    } else {
-        DZE_DEPLOYABLE_BIKE_KIT_DISPLAY = getText (configFile >> "CfgMagazines" >> DZE_DEPLOYABLE_BIKE_KIT >> "displayName");
-    };
+
+    DZE_DEPLOYABLE_BIKE_KIT_DISPLAY = getText (configFile >> DZE_DEPLOYABLE_BIKE_KIT_TYPE >> DZE_DEPLOYABLE_BIKE_KIT >> "displayName");
     DZE_DEPLOYABLE_BIKE_CLASS_DISPLAY = getText (configFile >> "CfgVehicles" >> DZE_DEPLOYABLE_BIKE_CLASS >> "displayName");
 
     if (isServer) exitWith {

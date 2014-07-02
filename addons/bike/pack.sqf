@@ -31,7 +31,7 @@ if(_exitWith != "nil") exitWith {
     taskHint [_exitWith, DZE_COLOR_DANGER, "taskFailed"];
 };
 
-if(DZE_DEPLOYABLE_BIKE_KIT in getArray(configFile >> "CfgWeapons")) then {
+if(DZE_DEPLOYABLE_BIKE_KIT_TYPE == "CfgWeapons") then {
     player addWeapon DZE_DEPLOYABLE_BIKE_KIT;
 } else {
     player addMagazine DZE_DEPLOYABLE_BIKE_KIT;
