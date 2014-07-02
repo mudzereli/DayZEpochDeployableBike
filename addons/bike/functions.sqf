@@ -1,4 +1,10 @@
-bike_crafting_animation = {
+fnc_can_do = {
+    private["_onLadder"];
+    _onLadder = (getNumber (configFile >> "CfgMovesMaleSdr" >> "States" >> (animationState player) >> "onLadder")) == 1;
+    (!r_drag_sqf and !r_player_unconscious and !_onLadder)
+};
+
+fnc_bike_crafting_animation = {
     private["_dis","_sfx","_isLoopDone","_isAnimationStarted","_isAnimationCompleted","_animationState","_isAnimationActive","_exitWith"];
 
     _dis=10;
