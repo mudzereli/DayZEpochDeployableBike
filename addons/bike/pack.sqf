@@ -1,5 +1,7 @@
 private["_isPackingLocked","_lastPackTime","_exitWith"];
 
+_exitWith = nil;
+
 if(player getVariable["combattimeout", 0] >= time) exitWith {
     taskHint ["Can't pack a bike while in combat!", [0.972549,0.121568,0,1], "taskFailed"];
 };
@@ -20,10 +22,6 @@ _exitWith = [
 
 if(!(isNil "_exitWith")) exitWith {
     taskHint [_exitWith, [0.972549,0.121568,0,1], "taskFailed"];
-};
-
-if(!_isAnimationCompleted) exitWith {
-    taskHint ["Bike packing failed!", [0.972549,0.121568,0,1], "taskFailed"];
 };
 
 player addWeapon "ItemToolbox";
