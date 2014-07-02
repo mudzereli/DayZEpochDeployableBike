@@ -24,11 +24,11 @@ This is used to register right click actions on items. Required by other addons.
 -----
 
 ##Change Log
-1.1.0 - configuration options / code optimization
-1.0.0 - release
+* 1.1.0 - configuration options / code optimization
+* 1.0.0 - release
 
 -----
 
 ##Planned
-1.2.0 - place deployable in front of player 
-2.0.0 - support for array construction of variables, allowing the script to handle multiple items/matches
+* 1.2.0 - place deployable in front of player 
+* 2.0.0 - support for array construction of variables, allowing the script to handle multiple items/matches
