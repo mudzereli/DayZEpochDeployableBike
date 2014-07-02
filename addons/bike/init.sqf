@@ -21,8 +21,6 @@
     DZE_COLOR_SUCCESS = [(153/255),(204/255),0,1];
     DZE_COLOR_DANGER  = [1,(68/255),(68/255),1];
 
-
-
     diag_log text "BIKE: waiting for login...";
     waitUntil{!isNil "PVDZE_plr_LoginRecord"};
 
