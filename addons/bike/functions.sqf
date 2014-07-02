@@ -19,7 +19,7 @@ fnc_bike_crafting_animation = {
     _isAnimationCompleted = false;
     _animationState = animationState player;
     _isAnimationActive = false;
-    _exitWith = nil;
+    _exitWith = "nil";
 
     while {!_isLoopDone} do {
         _animationState = animationState player;
@@ -36,7 +36,7 @@ fnc_bike_crafting_animation = {
                 _exitWith = _x select 1;
             };
         } forEach _this;
-        if (!(isNil "_exitWith")) then {
+        if (_exitWith != "nil") then {
             _isLoopDone = true;
             player switchMove "";
             player playActionNow "stop";
