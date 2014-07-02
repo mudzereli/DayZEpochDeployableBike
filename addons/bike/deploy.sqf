@@ -14,7 +14,7 @@ _exitWith = nil;
 ];
 
 if(!(isNil "_exitWith")) exitWith {
-    taskHint [_exitWith, [0.972549,0.121568,0,1], "taskFailed"];
+    taskHint [_exitWith, DZE_COLOR_DANGER, "taskFailed"];
 };
 
 DZE_BIKE_DEPLOYING = true;
@@ -27,7 +27,7 @@ _exitWith = [
 
 if(!(isNil "_exitWith")) exitWith {
     DZE_BIKE_DEPLOYING = false;
-    taskHint [_exitWith, [0.972549,0.121568,0,1], "taskFailed"];
+    taskHint [_exitWith, DZE_COLOR_DANGER, "taskFailed"];
 };
 
 player removeWeapon "ItemToolbox";
@@ -36,7 +36,7 @@ _object setVariable ["ObjectID", "1", true];
 _object setVariable ["ObjectUID", "1", true];
 player reveal _object;
 
-taskHint ["You've built a bike!", [0.600000,0.839215,0.466666,1], "taskDone"];
+taskHint ["You've built a bike!", DZE_COLOR_PRIMARY, "taskDone"];
 
 DZE_BIKE_DEPLOYING = false;
 

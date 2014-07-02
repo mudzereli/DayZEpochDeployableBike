@@ -1,15 +1,24 @@
 [] spawn {
+
     if (isServer) exitWith {
         diag_log text "BIKE: waiting for safe vehicle list...";
         waitUntil{!(isNil "DZE_safeVehicle");};
         diag_log text "BIKE: adding bike to safe vehicle list...";
         DZE_safeVehicle = DZE_safeVehicle + ["MMT_Civ"];
     };
+
     call compile preprocessFileLineNumbers "addons\bike\functions.sqf";
+
     DZE_CLICK_ACTIONS = DZE_CLICK_ACTIONS + [["ItemToolbox","Deploy Bike","execVM 'addons\bike\deploy.sqf';"]];
     DZE_BIKE_DEPLOYING = false;
+
+    DZE_COLOR_PRIMARY = [(51/255),(181/255),(229/255),1];
+    DZE_COLOR_SUCCESS = [(153/255),(204/255),0,1];
+    DZE_COLOR_DANGER  = [1,(68/255),(68/255),1];
+
     diag_log text "BIKE: waiting for login...";
     waitUntil{!isNil "PVDZE_plr_LoginRecord"};
+
     while {true} do {
         if(!isNull player) then {
             private["_isBike","_canDo","_onLadder"];
@@ -28,4 +37,5 @@
         };
         sleep 2;
     };
+
 };
