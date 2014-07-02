@@ -1,54 +1,41 @@
-private["_isPackingLocked","_lastPackTime"];
+private["_isPackingLocked","_lastPackTime","_exitWith"];
 
-if(player getVariable["combattimeout", 0] >= time) exitWith {
-    taskHint ["Can't pack bike while in combat!", [0.972549,0.121568,0,1], "taskFailed"];
-};
+_exitWith = "nil";
 
 _lastPackTime = cursorTarget getVariable["lastPackTime",diag_tickTime - 11];
 _isPackingLocked = diag_tickTime - _lastPackTime < 10;
-if(_isPackingLocked) exitWith {
-    taskHint ["Someone just tried to pack that bike! Try again in a few seconds.", [0.972549,0.121568,0,1], "taskFailed"];
+
+{
+    if(_x select 0) then {
+        _exitWith = (_x select 1);
+    };
+} forEach [
+    [!(call fnc_can_do),                               format["You can't pack your %1 right now.",DZE_DEPLOYABLE_BIKE_CLASS_DISPLAY]],
+    [(player getVariable["combattimeout", 0]) >= time, format["Can't build a %1 while in combat!",DZE_DEPLOYABLE_BIKE_CLASS_DISPLAY]],
+    [_isPackingLocked,                                 format["Someone just tried to pack that %1! Try again in a few seconds.",DZE_DEPLOYABLE_BIKE_CLASS_DISPLAY]]
+];
+
+if(_exitWith != "nil") exitWith {
+    taskHint [_exitWith, DZE_COLOR_DANGER, "taskFailed"];
 };
 
 cursorTarget setVariable["lastPackTime",diag_tickTime,true];
 player removeAction DZE_ACTION_BIKE_PACK;
 
-_dis=10;
-_sfx = "repair";
-[player,_sfx,0,false,_dis] call dayz_zombieSpeak;
-[player,_dis,true,(getPosATL player)] spawn player_alertZombies;
+_exitWith = [
+    [{r_interrupt},                                      format["Packing %1 interrupted!",DZE_DEPLOYABLE_BIKE_CLASS_DISPLAY]],
+    [{(player getVariable["combattimeout", 0]) >= time}, format["Can't pack a %1 while in combat!",DZE_DEPLOYABLE_BIKE_CLASS_DISPLAY]]
+] call fnc_bike_crafting_animation;
 
-player playActionNow "Medic";
-
-r_interrupt = false;
-_isLoopDone = false;
-_isAnimationStarted = false;
-_isAnimationCompleted = false;
-_animationState = animationState player;
-_isAnimationActive = false;
-
-while {!_isLoopDone} do {
-    _animationState = animationState player;
-    _isAnimationActive = ["medic",_animationState] call fnc_inString;
-    if (_isAnimationActive) then {
-        _isAnimationStarted = true;
-    };
-    if (_isAnimationStarted and !_isAnimationActive) then {
-        _isLoopDone = true;
-        _isAnimationCompleted = true;
-    };
-    if (r_interrupt or (player getVariable["combattimeout", 0] >= time)) then {
-        _isLoopDone = true;
-        player switchMove "";
-        player playActionNow "stop";
-    };
-    sleep 0.1;
+if(_exitWith != "nil") exitWith {
+    taskHint [_exitWith, DZE_COLOR_DANGER, "taskFailed"];
 };
 
-if(_isAnimationCompleted) then {
-    player addWeapon "ItemToolbox";
-    deleteVehicle cursortarget;
-    taskHint ["You packed your bike back into your toolbox.", [0.600000,0.839215,0.466666,1], "taskDone"];
+if(DZE_DEPLOYABLE_BIKE_KIT_TYPE == "CfgWeapons") then {
+    player addWeapon DZE_DEPLOYABLE_BIKE_KIT;
 } else {
-    taskHint ["Bike packing cancelled!", [0.972549,0.121568,0,1], "taskFailed"];
+    player addMagazine DZE_DEPLOYABLE_BIKE_KIT;
 };
+deleteVehicle cursortarget;
+
+taskHint [format["You packed your %1 back into your %2.",DZE_DEPLOYABLE_BIKE_CLASS_DISPLAY,DZE_DEPLOYABLE_BIKE_KIT_DISPLAY], DZE_COLOR_PRIMARY, "taskDone"];
