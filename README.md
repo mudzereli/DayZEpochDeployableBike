@@ -4,7 +4,17 @@
 
 #####credits: original concept/code by player2/overhaul by mudzereli
 
-This adds a deploy bike option when right clicking a toolbox. Can also be used to deploy just about anything (see config section below).
+This adds a deploy bike option when right clicking a toolbox. 
+
+Out of the box, it adds a deployable bike with a right click action on a toolbox and a couple other neat (but not too useful) deployables.
+
+Really, it can be used to deploy just about anything.
+
+See the **configuration** section below.
+
+For some samples of what it can do, check out this gallery on imgur:
+
+http://imgur.com/a/jH8Lw
 
 -----
 
