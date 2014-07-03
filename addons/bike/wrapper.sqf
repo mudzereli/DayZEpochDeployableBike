@@ -54,7 +54,7 @@ getDeployableKitDisplay = {
     if((isNil "_display")||_display == "") then {
         _display = (_this call getDeployableKitClass);
     };
-    diag_log text format["BIKE: post patch check: display = %1",_display];
+    //diag_log text format["BIKE: post patch check: display = %1",_display];
     _display
 };
 
@@ -67,6 +67,6 @@ getDeployableDisplay = {
     if((isNil "_display")||_display == "") then {
         _display = (_this call getDeployableClass);
     };
-    diag_log text format["BIKE: post patch check: display = %1",_display];
+    //diag_log text format["BIKE: post patch check: display = %1",_display];
     _display
 };
