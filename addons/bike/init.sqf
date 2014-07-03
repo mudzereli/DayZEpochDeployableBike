@@ -53,7 +53,7 @@
             _deployer = cursorTarget getVariable["DeployedBy","nil"];
             {   
                 //make sure all of these conditions pass before adding any actions -- shouldn't be too laggy since it's called every 2s rather than every frame like normal actions
-                if((_forEachIndex call getDeployablePackAny) && (typeOf cursorTarget == (_forEachIndex call getDeployableClass)) && (call fnc_can_do) && ((_deployer == (getPlayerUID player)) || ((_deployer != "nil") && (_forEachIndex call getDeployablePackOthers)) || (_forEachIndex call getDeployablePackWorld)) and ((player distance cursorTarget) < (_forEachIndex call getDeployablePackDistance))) then {
+                if(!(isNull cursorTarget) && {_forEachIndex call getDeployablePackAny} && {typeOf cursorTarget == (_forEachIndex call getDeployableClass)} && {call fnc_can_do} && {(_deployer == (getPlayerUID player)) || ((_deployer != "nil") && (_forEachIndex call getDeployablePackOthers)) || (_forEachIndex call getDeployablePackWorld)} && {(player distance cursorTarget) < (_forEachIndex call getDeployablePackDistance)}) then {
                     if (DZE_ACTION_DEPLOYABLE_PACK < 0) then {
                         DZE_ACTION_DEPLOYABLE_PACK = player addaction["<t color='#33b5e5'>" + format["Pack %1",(_forEachIndex call getDeployableDisplay)] + "</t>","addons\bike\pack.sqf",[_forEachIndex,cursorTarget],0,false,true,"", ""];
                     };
