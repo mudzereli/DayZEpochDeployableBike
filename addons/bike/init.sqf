@@ -1,5 +1,5 @@
 [] spawn {
-    DZE_DEPLOYABLE_VERSION = "1.0.0";
+    DZE_DEPLOYABLE_VERSION = "2.0.0";
     diag_log text format["BIKE: loading version %1 ...",DZE_DEPLOYABLE_VERSION];
 
     // included compiles
