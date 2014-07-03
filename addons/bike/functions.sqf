@@ -1,9 +1,12 @@
+// this function checks if play is on ladder/passed out/being drug
 fnc_can_do = {
     private["_onLadder"];
     _onLadder = (getNumber (configFile >> "CfgMovesMaleSdr" >> "States" >> (animationState player) >> "onLadder")) == 1;
     (!r_drag_sqf and !r_player_unconscious and !_onLadder)
 };
 
+// this goes through a crafting animation until the loop is interrupted until interrupted by a set of conditions fed to the function
+// it then returns the result of what broke the loop, or "nil" -- yes, string of "nil" -- if not broken
 fnc_bike_crafting_animation = {
     private["_dis","_sfx","_isLoopDone","_isAnimationStarted","_isAnimationCompleted","_animationState","_isAnimationActive","_exitWith"];
 

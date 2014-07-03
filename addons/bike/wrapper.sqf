@@ -45,7 +45,7 @@ getDeployableClass = {
     (DZE_DEPLOYABLES select _this) select 8
 };
 
-/* this gets the display name of the kit */
+/* this gets the display name of the kit or falls back to class name if unsuccessful */
 getDeployableKitDisplay = {
     private["_display"];
     //diag_log text format["BIKE: trying to get display of %1",_this call getDeployableKitClass];
@@ -58,7 +58,7 @@ getDeployableKitDisplay = {
     _display
 };
 
-/* this gets the display name of the deployable */
+/* this gets the display name of the deployable or falls back to class name if unsuccessful */
 getDeployableDisplay = {
     private["_display"];
     //diag_log text format["BIKE: trying to get display of %1",_this call getDeployableClass];

@@ -26,6 +26,7 @@ This adds a deploy bike option when right clicking a toolbox. Can also be used t
 
 ##Planned
 * save damage when packed/deployed
+* options for allowing/disallowing packing/deploying in trader cities
 
 -----
 
@@ -41,15 +42,15 @@ This addon is highly configurable, you can deploy just about anything, not just 
 - class names must be quoted and match dayz's class names
 
 ###Definitions:
-- CLASS_TO_CLICK             Class name of item that right click action is attached to (i.e. ItemToolbox)
-- TYPE_OF_CLASS_TO_CLICK     Either CfgWeapons or CfgMagazines (tools are weapons, bandages/food etc are magazines)
-- DEPLOY_DISTANCE            How far in front of the player should the item spawn? (usually 2-20 should be good)
-- DEPLOY_DIRECTION_OFFSET    The offset in relation to the players direction. (0-360 -- degrees to turn the object)
-- PACK_DISTANCE              How close does the player have to be to pack the item? (usually 5-10 is good here)
-- ALLOW_PACKING              If this is false, item can not be repacked no matter what. It is permanent until server restart. (true/false)
-- ALLOW_PACKING_OTHERS       Should players be able to pack items other players placed? (true/false)
-- ALLOW_PACKING_WORLD        Should players be able to pack items not placed by them or other players? (true/false -- usually false)
-- CLASS_TO_DEPLOY            Any number of CfgVehicle Class names that can be deployed from the clicked item (i.e. MMT_Civ)
+- **CLASS_TO_CLICK**             Class name of item that right click action is attached to (i.e. ItemToolbox)
+- **TYPE_OF_CLASS_TO_CLICK**     Either CfgWeapons or CfgMagazines (tools are weapons, bandages/food etc are magazines)
+- **DEPLOY_DISTANCE**            How far in front of the player should the item spawn? (usually 2-20 should be good)
+- **DEPLOY_DIRECTION_OFFSET**    The offset in relation to the players direction. (0-360 -- degrees to turn the object)
+- **PACK_DISTANCE**              How close does the player have to be to pack the item? (usually 5-10 is good here)
+- **ALLOW_PACKING**              If this is false, item can not be repacked no matter what. It is permanent until server restart. (true/false)
+- **ALLOW_PACKING_OTHERS**       Should players be able to pack items other players placed? (true/false)
+- **ALLOW_PACKING_WORLD**        Should players be able to pack items not placed by them or other players? (true/false -- usually false)
+- **CLASS_TO_DEPLOY**            Any number of CfgVehicle Class names that can be deployed from the clicked item (i.e. MMT_Civ)
 
 ###Sample Config:
 ```

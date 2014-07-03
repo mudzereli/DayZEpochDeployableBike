@@ -57,13 +57,18 @@ if (_button == 1) then {
 
     //### BEGIN MODIFIED CODE: extra click actions
     {
-        if(_item == (_x select 0)) then {
+        private["_className","_displayText","_scriptCall"];
+        _className   = _x select 0;
+        _displayText = _x select 1;
+        _scriptCall  = _x select 2;
+        // if the clicked item matches, then assign the script call and display text
+        if(_item == _className) then {
             _menu = _parent displayCtrl (1600 + _numActions);
             _menu ctrlShow true;
             _height = _height + (0.025 * safezoneH);
             uiNamespace setVariable ['uiControl', _control];
-            _menu ctrlSetText (_x select 1);
-            _menu ctrlSetEventHandler ["ButtonClick",(_x select 2)];
+            _menu ctrlSetText _displayText;
+            _menu ctrlSetEventHandler ["ButtonClick",_scriptCall];
             _numActions = _numActions + 1;
         };
     } forEach DZE_CLICK_ACTIONS;
