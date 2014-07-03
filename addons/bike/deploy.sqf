@@ -13,10 +13,10 @@ _exitWith = "nil";
         _exitWith = (_x select 1);
     };
 } forEach [
-    [!(call fnc_can_do),                                                               format["You can't build a %1 right now.",(_this call getDeployableDisplay)]],
-    [(player getVariable["combattimeout", 0]) >= time,                                 format["Can't build a %1 while in combat!",(_this call getDeployableDisplay)]],
-    [!((_this call getDeployableKitClass) in ((weapons player) + (magazines player))), format["You need a %1 to build a %2!",(_this call getDeployableKitDisplay),(_this call getDeployableDisplay)]],
-    [DZE_DEPLOYING,                                                                    "You are already building something!"]
+    [!(call fnc_can_do),                                                                                        format["You can't build a %1 right now.",(_this call getDeployableDisplay)]],
+    [(player getVariable["combattimeout", 0]) >= time,                                                          format["Can't build a %1 while in combat!",(_this call getDeployableDisplay)]],
+    [!((_this call getDeployableKitClass) in ((weapons player) + (magazines player) + [currentWeapon player])), format["You need a %1 to build a %2!",(_this call getDeployableKitDisplay),(_this call getDeployableDisplay)]],
+    [DZE_DEPLOYING,                                                                                             "You are already building something!"]
 ];
 
 if(_exitWith != "nil") exitWith {
@@ -38,7 +38,8 @@ if(_exitWith != "nil") exitWith {
 
 player removeWeapon (_this call getDeployableKitClass);
 player removeMagazine (_this call getDeployableKitClass);
-_object = (_this call getDeployableClass) createVehicle (player modelToWorld [0,(_this call getDeployableDistance),0]);
+_object = (_this call getDeployableClass) createVehicle (position player);
+_object setPos (player modelToWorld [0,(_this call getDeployableDistance),0]);
 _object setPos [((position _object) select 0),((position _object) select 1),0];
 _object setDir ((getDir player) + (_this call getDeployableDirectionOffset));
 _object setVariable ["ObjectID", "1", true];

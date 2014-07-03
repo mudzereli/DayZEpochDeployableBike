@@ -10,19 +10,39 @@ getDeployableKitType = {
     (DZE_DEPLOYABLES select _this) select 1
 };
 
-/* this gets the class of the deployable */
-getDeployableClass = {
-    (DZE_DEPLOYABLES select _this) select 2
-};
-
 /* this gets the distance of the deployable */
 getDeployableDistance = {
-    (DZE_DEPLOYABLES select _this) select 3
+    (DZE_DEPLOYABLES select _this) select 2
 };
 
 /* this gets the direction offset of the deployable (basically this direction)*/
 getDeployableDirectionOffset = {
+    (DZE_DEPLOYABLES select _this) select 3
+};
+
+/* this gets the distance a player must be to pack the deployable back up */
+getDeployablePackDistance = {
     (DZE_DEPLOYABLES select _this) select 4
+};
+
+/* should players be allowed to pack deployables at all? */
+getDeployablePackAny = {
+    (DZE_DEPLOYABLES select _this) select 5    
+};
+
+/* should players be allowed to pack deployables placed by others? */
+getDeployablePackOthers = {
+    (DZE_DEPLOYABLES select _this) select 6    
+};
+
+/* should players be allowed to pack non-deployed items found in the world? */
+getDeployablePackWorld = {
+    (DZE_DEPLOYABLES select _this) select 7    
+};
+
+/* this gets the class of the deployable */
+getDeployableClass = {
+    (DZE_DEPLOYABLES select _this) select 8
 };
 
 /* this gets the display name of the kit */

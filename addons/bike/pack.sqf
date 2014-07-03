@@ -1,5 +1,7 @@
 private["_isPackingLocked","_lastPackTime","_exitWith","_deployable","_cursorTarget"];
 
+player removeAction DZE_ACTION_DEPLOYABLE_PACK;
+
 _deployable = (_this select 3) select 0;
 _cursorTarget = (_this select 3) select 1;
 
@@ -24,7 +26,6 @@ if(_exitWith != "nil") exitWith {
 };
 
 _cursorTarget setVariable["lastPackTime",diag_tickTime,true];
-player removeAction DZE_ACTION_DEPLOYABLE_PACK;
 
 _exitWith = [
     ["r_interrupt",                                      format["Packing %1 interrupted!",(_deployable call getDeployableDisplay)]],
