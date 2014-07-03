@@ -40,9 +40,10 @@
 
     while {true} do {
         if(!isNull player) then {
-            {   private ["_deployer"];
-                _deployer = cursorTarget getVariable["DeployedBy","nil"];
-                if((_forEachIndex call getDeployablePackAny) && (typeOf cursorTarget == (_forEachIndex call getDeployableClass)) and (call fnc_can_do) and ((_deployer == (getPlayerUID player)) || ((_deployer != "nil") && (_forEachIndex call getDeployablePackOthers)) || (_forEachIndex call getDeployablePackWorld)) and ((player distance cursorTarget) < (_forEachIndex call getDeployablePackDistance))) then {
+            private ["_deployer"];
+            _deployer = cursorTarget getVariable["DeployedBy","nil"];
+            {   
+                if((_forEachIndex call getDeployablePackAny) && (typeOf cursorTarget == (_forEachIndex call getDeployableClass)) && (call fnc_can_do) && ((_deployer == (getPlayerUID player)) || ((_deployer != "nil") && (_forEachIndex call getDeployablePackOthers)) || (_forEachIndex call getDeployablePackWorld)) and ((player distance cursorTarget) < (_forEachIndex call getDeployablePackDistance))) then {
                     if (DZE_ACTION_DEPLOYABLE_PACK < 0) then {
                         DZE_ACTION_DEPLOYABLE_PACK = player addaction["<t color='#33b5e5'>" + format["Pack %1",(_forEachIndex call getDeployableDisplay)] + "</t>","addons\bike\pack.sqf",[_forEachIndex,cursorTarget],0,false,true,"", ""];
                     };
@@ -50,7 +51,7 @@
                     player removeAction DZE_ACTION_DEPLOYABLE_PACK;
                     DZE_ACTION_DEPLOYABLE_PACK = -1;
                 };
-                if (DZE_ACTION_DEPLOYABLE_PACK > -1) exitWith {};
+                if(DZE_ACTION_DEPLOYABLE_PACK > -1) exitWith {};
             } forEach DZE_DEPLOYABLES;
         };
         sleep 2.5;
