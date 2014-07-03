@@ -48,8 +48,8 @@ if((_deployable call getDeployableKitType) == "CfgWeapons") then {
     player addMagazine (_deployable call getDeployableKitClass);
 };
 deleteVehicle _cursorTarget;
-player removeAction DZE_ACTION_DEPLOYABLE_PACK;
-DZE_ACTION_DEPLOYABLE_PACK = -1;
+player removeAction (_deployable call getActionId);
+[_deployable,-1] call setActionId;
 DZE_PACKING = false;
 
 // congrats!

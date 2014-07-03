@@ -45,6 +45,21 @@ getDeployableClass = {
     (DZE_DEPLOYABLES select _this) select 8
 };
 
+/* this is a wrapper function for getting the value of the scroll action */
+getActionId = {
+  call compile format["
+    if (isNil 'DZE_ACTION_DEPLOYABLE_PACK_%1') then {
+        DZE_ACTION_DEPLOYABLE_PACK_%1 = -1;
+    };
+    DZE_ACTION_DEPLOYABLE_PACK_%1
+  ",_this];  
+};
+
+/* this is a wrapper function for setting the value of the scroll action */
+setActionId = {
+  call compile format["DZE_ACTION_DEPLOYABLE_PACK_%1 = %2;",_this select 0,_this select 1];  
+};
+
 /* this gets the display name of the kit or falls back to class name if unsuccessful */
 getDeployableKitDisplay = {
     private["_display"];

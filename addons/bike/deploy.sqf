@@ -1,4 +1,4 @@
-private["_exitWith","_position","_display"];
+private["_exitWith","_position","_display","_object"];
 
 _exitWith = "nil";
 

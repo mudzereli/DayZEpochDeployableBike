@@ -48,20 +48,17 @@
 
     while {true} do {
         if(!isNull player) then {
-            // check each deployable to see if it's what we're looking at and if so, add it to the action bar
-            private ["_deployer"];
-            _deployer = cursorTarget getVariable["DeployedBy","nil"];
             {   
                 //make sure all of these conditions pass before adding any actions -- shouldn't be too laggy since it's called every 2s rather than every frame like normal actions
-                if(!(isNull cursorTarget) && {_forEachIndex call getDeployablePackAny} && {typeOf cursorTarget == (_forEachIndex call getDeployableClass)} && {call fnc_can_do} && {(_deployer == (getPlayerUID player)) || ((_deployer != "nil") && (_forEachIndex call getDeployablePackOthers)) || (_forEachIndex call getDeployablePackWorld)} && {(player distance cursorTarget) < (_forEachIndex call getDeployablePackDistance)}) then {
-                    if (DZE_ACTION_DEPLOYABLE_PACK < 0) then {
-                        DZE_ACTION_DEPLOYABLE_PACK = player addaction["<t color='#33b5e5'>" + format["Pack %1",(_forEachIndex call getDeployableDisplay)] + "</t>","addons\bike\pack.sqf",[_forEachIndex,cursorTarget],0,false,true,"", ""];
+                if(!(isNull cursorTarget) && {_forEachIndex call getDeployablePackAny} && {typeOf cursorTarget == (_forEachIndex call getDeployableClass)} && {call fnc_can_do} && {(cursorTarget getVariable["DeployedBy","nil"] == (getPlayerUID player)) || ((cursorTarget getVariable["DeployedBy","nil"] != "nil") && (_forEachIndex call getDeployablePackOthers)) || (_forEachIndex call getDeployablePackWorld)} && {(player distance cursorTarget) < (_forEachIndex call getDeployablePackDistance)}) then {
+                    if ((_forEachIndex call getActionId) < 0) then {
+                        [_forEachIndex,player addaction["<t color='#33b5e5'>" + format["Pack %1",(_forEachIndex call getDeployableDisplay)] + "</t>","addons\bike\pack.sqf",[_forEachIndex,cursorTarget],0,false,true,"", ""]] call setActionId;
                     };
                 } else {
-                    player removeAction DZE_ACTION_DEPLOYABLE_PACK;
-                    DZE_ACTION_DEPLOYABLE_PACK = -1;
+                    player removeAction (_forEachIndex call getActionId);
+                    [_forEachIndex,-1] call setActionId;
                 };
-                if(DZE_ACTION_DEPLOYABLE_PACK > -1) exitWith {};
+                if((_forEachIndex call getActionId) > -1) exitWith {};
             } forEach DZE_DEPLOYABLES;
         };
         sleep 2.5;
