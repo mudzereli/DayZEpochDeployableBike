@@ -37,6 +37,7 @@ http://imgur.com/a/jH8Lw
 ##Planned
 * save damage when packed/deployed
 * options for allowing/disallowing packing/deploying in trader cities
+* damage limitation for packing?
 
 -----
 
