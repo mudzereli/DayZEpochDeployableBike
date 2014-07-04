@@ -33,6 +33,7 @@ then **REMOVE** it!
 -----
 
 ##Change Log
+* 2.2.0 - option for clearing cargo of spawned items
 * 2.1.0 - change way dependency call is made, only one line needed in init.sqf now for setup
 * 2.0.0 - major update, allow multiple deployables, pretty much any class
 * 1.1.0 - configuration options / code optimization
@@ -50,7 +51,7 @@ then **REMOVE** it!
 This addon is highly configurable, you can deploy just about anything, not just bikes. Browse to addons\bike\config.sqf and edit the array.
 
 ###Format:
-[ **CLASS_TO_CLICK** , **TYPE_OF_CLASS_TO_CLICK** , **DEPLOY_DISTANCE** , **DEPLOY_DIRECTION_OFFSET** , **PACK_DISTANCE** , **ALLOW_PACKING** , **ALLOW_PACKING_OTHERS** , **ALLOW_PACKING_WORLD** , [ **CLASS_TO_DEPLOY** , **CLASS_TO_DEPLOY2** ] ]
+[ **CLASS_TO_CLICK** , **TYPE_OF_CLASS_TO_CLICK** , **DEPLOY_DISTANCE** , **DEPLOY_DIRECTION_OFFSET** , **PACK_DISTANCE** , **ALLOW_PACKING** , **ALLOW_PACKING_OTHERS** , **ALLOW_PACKING_WORLD** , **CLEAR_CARGO** , [ **CLASS_TO_DEPLOY** , **CLASS_TO_DEPLOY2** ] ]
 
 ###Hints:
 - no comma after last entry
@@ -65,6 +66,7 @@ This addon is highly configurable, you can deploy just about anything, not just 
 - **ALLOW_PACKING**              If this is false, item can not be repacked no matter what. It is permanent until server restart. (true/false)
 - **ALLOW_PACKING_OTHERS**       Should players be able to pack items other players placed? (true/false)
 - **ALLOW_PACKING_WORLD**        Should players be able to pack items not placed by them or other players? (true/false -- usually false)
+- **CLEAR_CARGO**                Clear the cargo of the spawned vehicle? (true/false -- usually true)
 - **CLASS_TO_DEPLOY**            Any number of CfgVehicle Class names that can be deployed from the clicked item (i.e. MMT_Civ)
 
 ###Sample Config:
@@ -72,19 +74,23 @@ This addon is highly configurable, you can deploy just about anything, not just 
 /* default/sample configuration */
 DZE_DEPLOYABLES_CONFIG = [
     // deploy bike from toolbox 2 meters in front of player at 270 degree rotation that can be repacked
-    ["ItemToolbox","CfgWeapons",2,270,5,true,true,true,["MMT_Civ"]],
+    ["ItemToolbox","CfgWeapons",2,270,5,true,true,true,true,["MMT_Civ"]],
     // deploy fortifications from etool 3 meters in front of player that can be repacked
-    ["ItemEtool","CfgWeapons",3,0,5,true,true,false,["Land_fort_rampart","Fort_StoneWall_EP1"]],
+    ["ItemEtool","CfgWeapons",3,0,5,true,true,false,true,["Land_fort_rampart","Fort_StoneWall_EP1"]],
     // deploy helicopter from ruby 5 meters in front of player that can't be repacked
-    ["ItemRuby","CfgMagazines",5,270,7,false,false,false,["AH6X_DZ","UH1Y_DZ"]],
+    ["ItemRuby","CfgMagazines",5,270,7,false,false,false,true,["AH6X_DZ","UH1Y_DZ"]],
+    // deploy some stuff in front of the player that does have its cargo cleared
+    ["ItemCitrine","CfgMagazines",5,270,7,false,false,false,true,["UralCivil","MTVR","LocalBasicWeaponsBox"]],
+    // deploy some stuff in front of the player that doesnt have its cargo cleared
+    ["ItemSapphire","CfgMagazines",5,270,7,false,false,false,false,["UralCivil","MTVR","LocalBasicWeaponsBox"]],
     // deploy military housing from emerald 10 meters in front of the player that can't be repacked
-    ["ItemEmerald","CfgMagazines",10,0,10,false,false,false,["Barrack2","Land_fortified_nest_small_EP1"]],
+    ["ItemEmerald","CfgMagazines",10,0,10,false,false,false,true,["Barrack2","Land_fortified_nest_small_EP1"]],
     // deploy house stuff from generic parts 2m in front of the player, can be repacked by anyone
-    ["PartGeneric","CfgMagazines",2,0,5,true,true,false,["Desk","FoldChair","FoldTable","SmallTable","Barrel1","Garbage_can"]],
+    ["PartGeneric","CfgMagazines",2,0,5,true,true,false,true,["Desk","FoldChair","FoldTable","SmallTable","Barrel1","Garbage_can"]],
     // deploy house stuff from wood piles 2m in front of the player, can be repacked by anyone
-    ["PartWoodPile","CfgMagazines",2,90,5,true,true,false,["Land_Rack_EP1","Land_Table_EP1","Land_Shelf_EP1","WoodChair","Park_bench2","Park_bench1"]],
+    ["PartWoodPile","CfgMagazines",2,90,5,true,true,false,true,["Land_Rack_EP1","Land_Table_EP1","Land_Shelf_EP1","WoodChair","Park_bench2","Park_bench1"]],
     // deploy concrete stuff from cinderblocks 2m in front of the player, can be repacked by anyone
-    ["CinderBlocks","CfgMagazines",2,0,5,true,true,false,["Land_CncBlock","Land_CncBlock_Stripes"]]
+    ["CinderBlocks","CfgMagazines",2,0,5,true,true,false,true,["Land_CncBlock","Land_CncBlock_Stripes"]]
 ];
 ```
 
