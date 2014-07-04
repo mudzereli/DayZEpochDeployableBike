@@ -53,6 +53,10 @@ _object setDir ((getDir player) + (_this call getDeployableDirectionOffset));
 _object setVariable ["ObjectID", "1", true];
 _object setVariable ["ObjectUID", "1", true];
 _object setVariable ["DeployedBy",getPlayerUID player,true];
+if(_this call getClearCargo) then {
+    clearWeaponCargoGlobal _object;
+    clearMagazineCargoGlobal _object;
+};
 DZE_DEPLOYING = false;
 player reveal _object;
 

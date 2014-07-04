@@ -40,9 +40,14 @@ getDeployablePackWorld = {
     (DZE_DEPLOYABLES select _this) select 7    
 };
 
+/* checks if cargo should be cleared for this item */
+getClearCargo = {
+    (DZE_DEPLOYABLES select _this) select 8
+};
+
 /* this gets the class of the deployable */
 getDeployableClass = {
-    (DZE_DEPLOYABLES select _this) select 8
+    (DZE_DEPLOYABLES select _this) select 9
 };
 
 /* this is a wrapper function for getting the value of the scroll action */

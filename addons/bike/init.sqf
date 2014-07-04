@@ -1,5 +1,5 @@
 [] spawn {
-    DZE_DEPLOYABLE_VERSION = "2.1.0";
+    DZE_DEPLOYABLE_VERSION = "2.2.0";
     DZE_CRV_DEPLOYABLE = 2;
 
     diag_log text format["BIKE: loading version %1 ...",DZE_DEPLOYABLE_VERSION];
@@ -22,7 +22,7 @@
     // inflate deployables
     DZE_DEPLOYABLES = [];
     {
-        private["_class","_type","_distance","_deployables","_dirOffset","_packDist","_packAny","_packOthers","_packWorld"];
+        private["_class","_type","_distance","_deployables","_dirOffset","_packDist","_packAny","_packOthers","_packWorld","_clearCargo"];
         _class       = _x select 0;
         _type        = _x select 1;
         _distance    = _x select 2;
@@ -31,9 +31,10 @@
         _packAny     = _x select 5;
         _packOthers  = _x select 6;
         _packWorld   = _x select 7;
-        _deployables = _x select 8;
+        _clearCargo  = _x select 8;
+        _deployables = _x select 9;
         {
-            DZE_DEPLOYABLES set [count DZE_DEPLOYABLES,[_class,_type,_distance,_dirOffset,_packDist,_packAny,_packOthers,_packWorld,_x]];
+            DZE_DEPLOYABLES set [count DZE_DEPLOYABLES,[_class,_type,_distance,_dirOffset,_packDist,_packAny,_packOthers,_packWorld,_clearCargo,_x]];
         } forEach _deployables;
     } forEach DZE_DEPLOYABLES_CONFIG;
 
