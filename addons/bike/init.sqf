@@ -1,12 +1,18 @@
 [] spawn {
     DZE_DEPLOYABLE_VERSION = "2.1.0";
+    DZE_CRV_DEPLOYABLE = 2;
+
     diag_log text format["BIKE: loading version %1 ...",DZE_DEPLOYABLE_VERSION];
 
     // call dependency
     call compile preprocessFileLineNumbers "overwrites\click_actions\init.sqf";
-    if (!(isServer) && isNil "DZE_CLICK_ACTIONS_LOADED") exitWith {
-        diag_log text "BIKE: ERROR -- Click Actions Handler not loaded! You are missing an addon!";
+    if (!(isServer) && {isNil "DZE_CLICK_ACTIONS_BUILD"}) exitWith {
+        diag_log text "BIKE: ERROR -- Click Actions Handler missing!";
     };
+    if (!(isServer) && {DZE_CLICK_ACTIONS_BUILD != DZE_CRV_DEPLOYABLE}) exitWith {
+        diag_log text format["BIKE: ERROR -- Click Actions Handler loaded build #%1! Required build #%2!",DZE_CLICK_ACTIONS_BUILD,DZE_CRV_DEPLOYABLE];
+    };
+
 
     // included compiles
     call compile preprocessFileLineNumbers "addons\bike\config.sqf";
