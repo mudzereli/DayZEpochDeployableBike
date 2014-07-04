@@ -26,6 +26,12 @@ http://imgur.com/a/jH8Lw
 
 -----
 
+**warning**: if you are updating this addon from an old version and you have this line in your mission file init.sqf:
+```call compile preprocessFileLineNumbers "overwrites\click_actions\init.sqf";```
+then **REMOVE** it!
+
+-----
+
 ##Change Log
 * 2.1.0 - change way dependency call is made, only one line needed in init.sqf now for setup
 * 2.0.0 - major update, allow multiple deployables, pretty much any class
@@ -35,8 +41,7 @@ http://imgur.com/a/jH8Lw
 -----
 
 ##Planned
-* save damage when packed/deployed
-* options for allowing/disallowing packing/deploying in trader cities
+* allow multiple items to be required for building
 * damage limitation for packing?
 
 -----
