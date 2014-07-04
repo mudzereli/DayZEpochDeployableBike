@@ -1,6 +1,6 @@
 ##CONTENTS
 
-###DEPLOYABLE BIKE 2.0.0
+###DEPLOYABLE BIKE 2.1.0
 
 #####credits: original concept/code by player2/overhaul by mudzereli
 
@@ -21,13 +21,13 @@ http://imgur.com/a/jH8Lw
 ##Installation
  1. extract the **addons** and **overwrites** folder from the downloaded zip file into your mission file root
  2. add these lines to the end of your mission file init.sqf.
-   * ```call compile preprocessFileLineNumbers "overwrites\click_actions\init.sqf";```
    * ```call compile preprocessFileLineNumbers "addons\bike\init.sqf";```
  3. edit "addons\bike\config.sqf" to change some options or add different deployables
 
 -----
 
 ##Change Log
+* 2.1.0 - change way dependency call is made, only one line needed in init.sqf now for setup
 * 2.0.0 - major update, allow multiple deployables, pretty much any class
 * 1.1.0 - configuration options / code optimization
 * 1.0.0 - release

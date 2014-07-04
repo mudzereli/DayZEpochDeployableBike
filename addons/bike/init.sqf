@@ -1,5 +1,5 @@
 [] spawn {
-    DZE_DEPLOYABLE_VERSION = "2.0.0";
+    DZE_DEPLOYABLE_VERSION = "2.1.0";
     diag_log text format["BIKE: loading version %1 ...",DZE_DEPLOYABLE_VERSION];
 
     // call dependency
