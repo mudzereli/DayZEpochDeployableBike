@@ -1,6 +1,6 @@
 ##CONTENTS
 
-###DEPLOYABLE BIKE 2.1.0
+###DEPLOYABLE BIKE 2.2.0
 
 #####credits: original concept/code by player2/overhaul by mudzereli
 
