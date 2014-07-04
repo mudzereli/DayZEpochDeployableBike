@@ -4,7 +4,7 @@
 
     // call dependency
     call compile preprocessFileLineNumbers "overwrites\click_actions\init.sqf";
-    if (isNil "DZE_CLICK_ACTIONS_LOADED") exitWith {
+    if (!(isServer) && isNil "DZE_CLICK_ACTIONS_LOADED") exitWith {
         diag_log text "BIKE: ERROR -- Click Actions Handler not loaded! You are missing an addon!";
     };
 
@@ -37,12 +37,14 @@
         waitUntil{!(isNil "DZE_safeVehicle");};
         diag_log text "BIKE: adding bike to safe vehicle list...";
         {DZE_safeVehicle = DZE_safeVehicle + [(_forEachIndex call getDeployableClass)];} forEach DZE_DEPLOYABLES;
+
     };
 
     // register actions with the click actions handler
     {DZE_CLICK_ACTIONS = DZE_CLICK_ACTIONS + [[(_forEachIndex call getDeployableKitClass),format["Deploy %1",(_forEachIndex call getDeployableDisplay)],format["%1 execVM 'addons\bike\deploy.sqf';",_forEachIndex]]];} forEach DZE_DEPLOYABLES;
-    DZE_DEPLOYING = false;
-
+    DZE_DEPLOYING      = false;
+    DZE_PACKING        = false;
+    
     // colors for formatting messages
     DZE_COLOR_PRIMARY = [(51/255),(181/255),(229/255),1];
     DZE_COLOR_SUCCESS = [(153/255),(204/255),0,1];
