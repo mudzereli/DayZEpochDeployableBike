@@ -2,6 +2,12 @@
     DZE_DEPLOYABLE_VERSION = "2.0.0";
     diag_log text format["BIKE: loading version %1 ...",DZE_DEPLOYABLE_VERSION];
 
+    // call dependency
+    call compile preprocessFileLineNumbers "overwrites\click_actions\init.sqf";
+    if (isNil "DZE_CLICK_ACTIONS_LOADED") exitWith {
+        diag_log text "BIKE: ERROR -- Click Actions Handler not loaded! You are missing an addon!";
+    };
+
     // included compiles
     call compile preprocessFileLineNumbers "addons\bike\config.sqf";
     call compile preprocessFileLineNumbers "addons\bike\wrapper.sqf";
