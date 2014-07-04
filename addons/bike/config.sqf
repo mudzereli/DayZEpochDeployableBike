@@ -8,9 +8,9 @@ DZE_DEPLOYABLES_CONFIG = [
     // deploy helicopter from ruby 5 meters in front of player that can't be repacked
     ["ItemRuby","CfgMagazines",5,270,7,false,false,false,true,["AH6X_DZ","UH1Y_DZ"]],
     // deploy some stuff in front of the player that does have its cargo cleared
-    ["ItemCitrine","CfgMagazines",5,270,7,false,false,false,true,["UralCivil","MTVR","LocalBasicWeaponsBox"]],
+    //["ItemCitrine","CfgMagazines",5,270,7,false,false,false,true,["UralCivil","MTVR","LocalBasicWeaponsBox"]],
     // deploy some stuff in front of the player that doesnt have its cargo cleared
-    ["ItemSapphire","CfgMagazines",5,270,7,false,false,false,false,["UralCivil","MTVR","LocalBasicWeaponsBox"]],
+    //["ItemSapphire","CfgMagazines",5,270,7,false,false,false,false,["UralCivil","MTVR","LocalBasicWeaponsBox"]],
     // deploy military housing from emerald 10 meters in front of the player that can't be repacked
     ["ItemEmerald","CfgMagazines",10,0,10,false,false,false,true,["Barrack2","Land_fortified_nest_small_EP1"]],
     // deploy house stuff from generic parts 2m in front of the player, can be repacked by anyone
