@@ -4,9 +4,11 @@
 
 #####credits: original concept/code by player2/overhaul by mudzereli
 
+**version 2.3.0 adds database saving, admin list, and configurable damage limits**
+
 This adds a deploy bike option when right clicking a toolbox. 
 
-Out of the box, it adds a deployable bike with a right click action on a toolbox and a couple other neat (but not too useful) deployables.
+Out of the box, it adds a deployable bike with a right click action on a toolbox and a couple other neat deployables.
 
 Really, it can be used to deploy just about anything.
 
