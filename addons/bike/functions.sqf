@@ -49,34 +49,26 @@ fnc_bike_crafting_animation = {
     _exitWith
 };
 
-fnc_set_deployable_id = {
-    private["_index"];
-    _index = (typeOf _this) call getDeployableIndex;
-    if(_index >= 0) then {
-        if(_index call getPermanent) then {
-            _this setVariable ["CharacterID",call fnc_perm_deployable_id, true]; 
-        } else {
-            _this setVariable ["DeployedBy",getPlayerUID player, true]; 
-        };
-    };
+fnc_set_temp_deployable_id = {
+    _this setVariable ["DeployedBy",fnc_temp_deployable_id, true]; 
 };
 
-fnc_get_deployable_id = {
-    private["_index","_return","_parse"];
-    _return = "nil";
-    _index = (typeOf _this) call getDeployableIndex;
-    if(_index >= 0) then {
-        if(_index call getPermanent) then {
-           _return = _this getVariable ["CharacterID","0"];
-           _parse = parseNumber _return;
-           if(_parse < 500000) then {
-                _return = "nil";
-           };
-        } else {
-           _return = _this getVariable ["DeployedBy","0"]; 
-        };
+fnc_set_perm_deployable_id = {
+    _this setVariable ["CharacterID",call fnc_perm_deployable_id, true]; 
+};
+
+fnc_get_perm_deployable_id = {
+    private["_return","_parse"];
+    _return = _this getVariable ["CharacterID","0"];
+    _parse = parseNumber _return;
+    if(_parse < 500000) then {
+        _return = "nil";
     };
     _return
+};
+
+fnc_get_temp_deployable_id = {
+    _this getVariable ["DeployedBy","nil"]
 };
 
 fnc_perm_deployable_id = {

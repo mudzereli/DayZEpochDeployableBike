@@ -52,7 +52,7 @@ getDeployableClass = {
 
 /* should players be allowed to pack deployables at all? */
 getDeployablePackAny = {
-    (_this call getDamageLimit) >= 0;   
+    ((_this call getDamageLimit) >= 0) || (!(isNull player) && {(getPlayerUID player) in DZE_DEPLOYABLE_ADMINS});   
 };
 
 /* this is a wrapper function for getting the value of the scroll action */

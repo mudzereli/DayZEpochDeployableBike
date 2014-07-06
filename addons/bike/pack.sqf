@@ -55,6 +55,7 @@ if(_deployable call getPermanent) then {
     publicVariableServer "PVDZE_obj_Delete";
 };
 deleteVehicle _cursorTarget;
+hideObject _cursorTarget;
 player removeAction (_deployable call getActionId);
 [_deployable,-1] call setActionId;
 DZE_PACKING = false;

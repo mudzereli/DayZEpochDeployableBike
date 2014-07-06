@@ -68,10 +68,10 @@
                         && {_forEachIndex call getDeployablePackAny} 
                         && {typeOf cursorTarget == (_forEachIndex call getDeployableClass)} 
                         && {call fnc_can_do} 
-                        && {(cursorTarget call fnc_get_deployable_id) != "nil"}
+                        && {(((cursorTarget call fnc_get_temp_deployable_id) != "nil") || ((cursorTarget call fnc_get_perm_deployable_id) != "nil"))}
                         && {(
-                            ((_forEachIndex call getPermanent) && ((cursorTarget call fnc_get_deployable_id) == (call fnc_perm_deployable_id))) 
-                            || ((!(_forEachIndex call getPermanent)) && ((cursorTarget call fnc_get_deployable_id) == (call fnc_temp_deployable_id))) 
+                            ((cursorTarget call fnc_get_perm_deployable_id) == (call fnc_perm_deployable_id))
+                            || ((cursorTarget call fnc_get_temp_deployable_id) == (call fnc_temp_deployable_id))
                             || (_forEachIndex call getDeployablePackOthers)
                             || ((getPlayerUID player) in DZE_DEPLOYABLE_ADMINS)
                         )} 
@@ -83,7 +83,7 @@
                     player removeAction (_forEachIndex call getActionId);
                     [_forEachIndex,-1] call setActionId;
                 };
-                if((_forEachIndex call getActionId) > -1) exitWith {};
+                //if((_forEachIndex call getActionId) > -1) exitWith {};
             } forEach DZE_DEPLOYABLES;
         };
         sleep 2.5;

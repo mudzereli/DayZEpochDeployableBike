@@ -57,7 +57,7 @@ if (_this call getPermanent) then {
 } else {
     _object setVariable ["ObjectID", "1", true];
     _object setVariable ["ObjectUID", "1", true];
-    _object call fnc_set_deployable_id;
+    _object call fnc_set_temp_deployable_id;
 };
 if(_this call getClearCargo) then {
     clearWeaponCargoGlobal _object;
