@@ -45,9 +45,14 @@ getClearCargo = {
     (DZE_DEPLOYABLES select _this) select 8
 };
 
+/* should the vehicle be saved permanently to the database */
+getPermanent = {
+    (DZE_DEPLOYABLES select _this) select 9
+};
+
 /* this gets the class of the deployable */
 getDeployableClass = {
-    (DZE_DEPLOYABLES select _this) select 9
+    (DZE_DEPLOYABLES select _this) select 10
 };
 
 /* this is a wrapper function for getting the value of the scroll action */
