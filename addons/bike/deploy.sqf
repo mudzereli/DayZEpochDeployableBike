@@ -48,7 +48,6 @@ player removeWeapon (_this call getDeployableKitClass);
 player removeMagazine (_this call getDeployableKitClass);
 _object = (_this call getDeployableClass) createVehicle (position player);
 _object setPos (player modelToWorld [0,(_this call getDeployableDistance),0]);
-_object setPos [((position _object) select 0),((position _object) select 1),0];
 _object setDir ((getDir player) + (_this call getDeployableDirectionOffset));
 _object setVariable ["ObjectID", "1", true];
 _object setVariable ["ObjectUID", "1", true];
