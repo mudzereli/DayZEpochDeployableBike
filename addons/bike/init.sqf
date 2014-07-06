@@ -63,21 +63,23 @@
     while {true} do {
         if(!isNull player) then {
             {   
+                private ["_cursorTarget"];
+                _cursorTarget = cursorTarget;
                 //make sure all of these conditions pass before adding any actions -- shouldn't be too laggy since it's called every 2s rather than every frame like normal actions
-                if(!(isNull cursorTarget) 
+                if(!(isNull _cursorTarget)
                         && {_forEachIndex call getDeployablePackAny} 
-                        && {typeOf cursorTarget == (_forEachIndex call getDeployableClass)} 
+                        && {typeOf _cursorTarget == (_forEachIndex call getDeployableClass)} 
                         && {call fnc_can_do} 
-                        && {(((cursorTarget call fnc_get_temp_deployable_id) != "nil") || ((cursorTarget call fnc_get_perm_deployable_id) != "nil"))}
+                        && {(((_cursorTarget call fnc_get_temp_deployable_id) != "nil") || ((_cursorTarget call fnc_get_perm_deployable_id) != "nil"))}
                         && {(
-                            ((cursorTarget call fnc_get_perm_deployable_id) == (call fnc_perm_deployable_id))
-                            || ((cursorTarget call fnc_get_temp_deployable_id) == (call fnc_temp_deployable_id))
+                            ((_cursorTarget call fnc_get_perm_deployable_id) == (call fnc_perm_deployable_id))
+                            || ((_cursorTarget call fnc_get_temp_deployable_id) == (call fnc_temp_deployable_id))
                             || (_forEachIndex call getDeployablePackOthers)
                             || ((getPlayerUID player) in DZE_DEPLOYABLE_ADMINS)
                         )} 
-                        && {(player distance cursorTarget) < (_forEachIndex call getDeployablePackDistance)}) then {
+                        && {(player distance _cursorTarget) < (_forEachIndex call getDeployablePackDistance)}) then {
                     if ((_forEachIndex call getActionId) < 0) then {
-                        [_forEachIndex,player addaction["<t color='#33b5e5'>" + format["Pack %1",(_forEachIndex call getDeployableDisplay)] + "</t>","addons\bike\pack.sqf",[_forEachIndex,cursorTarget],0,false,true,"", ""]] call setActionId;
+                        [_forEachIndex,player addaction["<t color='#33b5e5'>" + format["Pack %1",(_forEachIndex call getDeployableDisplay)] + "</t>","addons\bike\pack.sqf",[_forEachIndex,_cursorTarget],0,false,true,"", ""]] call setActionId;
                     };
                 } else {
                     player removeAction (_forEachIndex call getActionId);
