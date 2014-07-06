@@ -25,34 +25,34 @@ getDeployablePackDistance = {
     (DZE_DEPLOYABLES select _this) select 4
 };
 
-/* should players be allowed to pack deployables at all? */
-getDeployablePackAny = {
-    (DZE_DEPLOYABLES select _this) select 5    
+/* if the damage is higher than this, it can't be packed again */
+getDamageLimit = {
+    (DZE_DEPLOYABLES select _this) select 5
 };
 
 /* should players be allowed to pack deployables placed by others? */
 getDeployablePackOthers = {
-    (DZE_DEPLOYABLES select _this) select 6    
-};
-
-/* should players be allowed to pack non-deployed items found in the world? */
-getDeployablePackWorld = {
-    (DZE_DEPLOYABLES select _this) select 7    
+    (DZE_DEPLOYABLES select _this) select 6   
 };
 
 /* checks if cargo should be cleared for this item */
 getClearCargo = {
-    (DZE_DEPLOYABLES select _this) select 8
+    (DZE_DEPLOYABLES select _this) select 7
 };
 
 /* should the vehicle be saved permanently to the database */
 getPermanent = {
-    (DZE_DEPLOYABLES select _this) select 9
+    (DZE_DEPLOYABLES select _this) select 8
 };
 
 /* this gets the class of the deployable */
 getDeployableClass = {
-    (DZE_DEPLOYABLES select _this) select 10
+    (DZE_DEPLOYABLES select _this) select 9
+};
+
+/* should players be allowed to pack deployables at all? */
+getDeployablePackAny = {
+    (_this call getDamageLimit) >= 0;   
 };
 
 /* this is a wrapper function for getting the value of the scroll action */
@@ -94,4 +94,16 @@ getDeployableDisplay = {
     };
     //diag_log text format["BIKE: post patch check: display = %1",_display];
     _display
+};
+
+/* looks up the index of a deployable based on the class */
+getDeployableIndex = {
+    private["_return"];
+    _return = -1;
+    {
+        if(_this == (_forEachIndex call getDeployableClass)) then {
+            _return = _forEachIndex;
+        }
+    } forEach DZE_DEPLOYABLES;
+    _return
 };

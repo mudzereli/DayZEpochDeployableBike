@@ -33,7 +33,10 @@ then **REMOVE** it!
 -----
 
 ##Change Log
-* 2.3.0 - optional saving to database
+* 2.3.0
+  - optional saving to database with post-restart memory of deployed items (see warning below about this)
+  - configurable damage limits on re-packing, 
+  - admin list for packing/deploying instantly & being able to remove all deployables
 * 2.2.1 - positioning fix for deployed items
 * 2.2.0 - option for clearing cargo of spawned items
 * 2.1.0 - change way dependency call is made, only one line needed in init.sqf now for setup
@@ -41,22 +44,24 @@ then **REMOVE** it!
 * 1.1.0 - configuration options / code optimization
 * 1.0.0 - release
 
+###Warning:
+- due to the way the way arma handles numbers and the way addon is coded, using the save-to-database option may not allow you to re-pack some objects if you have Character ID's over 500,000 (which I don't think will be an issue for 99.99% of people). 
+
 -----
 
 ##Planned
 * allow multiple items to be required for building
-* damage limitation for packing?
 
 -----
 
 ##Configuration
 This addon is highly configurable, you can deploy just about anything, not just bikes. Browse to addons\bike\config.sqf and edit the array.
 
-###Format:
-[ **CLASS_TO_CLICK** , **TYPE_OF_CLASS_TO_CLICK** , **DEPLOY_DISTANCE** , **DEPLOY_DIRECTION_OFFSET** , **PACK_DISTANCE** , **ALLOW_PACKING** , **ALLOW_PACKING_OTHERS** , **ALLOW_PACKING_WORLD** , **CLEAR_CARGO** , [ **CLASS_TO_DEPLOY** , **CLASS_TO_DEPLOY2** ] ]
+###Config Format:
+[ **CLASS_TO_CLICK** , **TYPE_OF_CLASS_TO_CLICK** , **DEPLOY_DISTANCE** , **DEPLOY_DIRECTION_OFFSET** , **PACK_DISTANCE** , **PACK_DAMAGE_LIMIT** , **ALLOW_PACKING** , **ALLOW_PACKING_OTHERS** , **CLEAR_CARGO** , **SAVE_TO_DATABASE** , [ **CLASS_TO_DEPLOY** , **CLASS_TO_DEPLOY2** , ... ] ]
 
 ###Hints:
-- no comma after last entry
+- no comma after last entry in array
 - class names must be quoted and match dayz's class names
 
 ###Definitions:
@@ -65,35 +70,35 @@ This addon is highly configurable, you can deploy just about anything, not just 
 - **DEPLOY_DISTANCE**            How far in front of the player should the item spawn? (usually 2-20 should be good)
 - **DEPLOY_DIRECTION_OFFSET**    The offset in relation to the players direction. (0-360 -- degrees to turn the object)
 - **PACK_DISTANCE**              How close does the player have to be to pack the item? (usually 5-10 is good here)
-- **ALLOW_PACKING**              If this is false, item can not be repacked no matter what. It is permanent until server restart. (true/false)
+- **PACK_DAMAGE_LIMIT**          If the damage is higher then this, then the item can't be packed again. (if you always want to be able to pack the item, set 1 here, set -1 to disable packing)
 - **ALLOW_PACKING_OTHERS**       Should players be able to pack items other players placed? (true/false)
-- **ALLOW_PACKING_WORLD**        Should players be able to pack items not placed by them or other players? (true/false -- usually false)
 - **CLEAR_CARGO**                Clear the cargo of the spawned vehicle? (true/false -- usually true)
 - **SAVE_TO_DATABASE**           If this is true then the spawned item will be saved permanently to the database (true/false)
-- **CLASS_TO_DEPLOY**            Any number of CfgVehicle Class names that can be deployed from the clicked item (i.e. MMT_Civ)
+- **CLASS_TO_DEPLOY**            Array of CfgVehicle Class names that can be deployed from the clicked item (i.e. MMT_Civ)
+
 
 ###Sample Config:
 ```
 /* default/sample configuration */
 DZE_DEPLOYABLES_CONFIG = [
-    // deploy bike from toolbox 2 meters in front of player at 270 degree rotation that can be repacked
-    ["ItemToolbox","CfgWeapons",2,270,5,true,true,true,true,false,["MMT_Civ"]],
-    // deploy fortifications from etool 3 meters in front of player that can be repacked
-    ["ItemEtool","CfgWeapons",3,0,5,true,true,false,true,false,["Land_fort_rampart","Fort_StoneWall_EP1"]],
-    // deploy helicopter from ruby 5 meters in front of player that can't be repacked
-    ["ItemRuby","CfgMagazines",5,270,7,false,false,false,true,true,["AH6X_DZ","UH1Y_DZ"]],
-    // deploy some stuff in front of the player that does have its cargo cleared
+    // deploy a non-permanent bike from a toolbox right in front of the player that can be re-packed by the owner as long as it's under 10% damage
+    ["ItemToolbox","CfgWeapons",2,270,5,0.1,true,false,false,["MMT_Civ"]],
+    // deploy fortifications from etool 3 meters in front of player that are permanent until server restart
+    ["ItemEtool","CfgWeapons",3,0,5,-1,true,true,false,["Land_fort_rampart","Fort_StoneWall_EP1"]],
+    // deploy a permanent helicopter from ruby 5 meters in front of player that can be re-packed by anyone as long as it's under 10% damage
+    ["ItemRuby","CfgMagazines",5,270,7,0.1,false,true,true,["AH6X_DZ","UH1Y_DZ"]],
+    // deploy some vehicles in front of the player that have an empty inventory (commented out)
     //["ItemCitrine","CfgMagazines",5,270,7,false,false,false,true,["UralCivil","MTVR","LocalBasicWeaponsBox"]],
-    // deploy some stuff in front of the player that doesnt have its cargo cleared
+    // deploy some vehicles in front of the player that have all the default items in their inventory still (commented out)
     //["ItemSapphire","CfgMagazines",5,270,7,false,false,false,false,["UralCivil","MTVR","LocalBasicWeaponsBox"]],
-    // deploy military housing from emerald 10 meters in front of the player that can't be repacked
-    ["ItemEmerald","CfgMagazines",10,0,10,false,false,false,true,false,["Barrack2","Land_fortified_nest_small_EP1"]],
-    // deploy house stuff from generic parts 2m in front of the player, can be repacked by anyone
-    ["PartGeneric","CfgMagazines",2,0,5,true,true,false,true,false,["Desk","FoldChair","FoldTable","SmallTable","Barrel1","Garbage_can"]],
-    // deploy house stuff from wood piles 2m in front of the player, can be repacked by anyone
-    ["PartWoodPile","CfgMagazines",2,90,5,true,true,false,true,false,["Land_Rack_EP1","Land_Table_EP1","Land_Shelf_EP1","WoodChair","Park_bench2","Park_bench1"]],
-    // deploy concrete stuff from cinderblocks 2m in front of the player, can be repacked by anyone
-    ["CinderBlocks","CfgMagazines",2,0,5,true,true,false,true,true,["Land_CncBlock","Land_CncBlock_Stripes"]]
+    // deploy military housing in front of the player that is permanent but can't be re-packed by anyone
+    ["ItemEmerald","CfgMagazines",10,0,10,-1,false,false,false,true,["Barrack2","Land_fortified_nest_small_EP1"]],
+    // deploy some housing items from parts piles in front of the player that are permanent but can be re-packed by anyone
+    ["PartGeneric","CfgMagazines",2,0,5,1,true,true,true,["Desk","FoldChair","FoldTable","SmallTable","Barrel1","Garbage_can"]],
+    // deploy some housing items from wood piles in front of the player that are permanent but can be re-packed by anyone
+    ["PartWoodPile","CfgMagazines",2,90,5,1,false,false,true,["Land_Rack_EP1","Land_Table_EP1","Land_Shelf_EP1","WoodChair","Park_bench2","Park_bench1"]],
+    // deploy concrete barricades from cinderblocks 2m in front of the player, that are permanent and can only be re-packed by the person who placed them
+    ["CinderBlocks","CfgMagazines",2,0,5,1,true,false,true,["Land_CncBlock","Land_CncBlock_Stripes"]]
 ];
 ```
 
