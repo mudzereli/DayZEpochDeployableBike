@@ -1,4 +1,4 @@
-###DEPLOYABLE BIKE 2.3.0
+###DEPLOYABLE BIKE 2.3.1
 
 #####credits: original concept/code by player2/overhaul by mudzereli
 
@@ -33,6 +33,7 @@ then **REMOVE** it!
 -----
 
 ##Change Log
+* 2.3.1 - big fix on packing temp objects
 * 2.3.0
   - optional saving to database with post-restart memory of deployed items (see warning below about this)
   - configurable damage limits on re-packing, 

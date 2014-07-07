@@ -50,7 +50,7 @@ fnc_bike_crafting_animation = {
 };
 
 fnc_set_temp_deployable_id = {
-    _this setVariable ["DeployedBy",fnc_temp_deployable_id, true]; 
+    _this setVariable ["DeployedBy",call fnc_temp_deployable_id, true]; 
 };
 
 fnc_set_perm_deployable_id = {
