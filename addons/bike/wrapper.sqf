@@ -135,8 +135,8 @@ getHasDeployableParts = {
 };
 
 /* remove this item's parts from the players inventory */
+/* [player,_partIndex] call removeDeployableParts; */
 removeDeployableParts = {
-    /* [player,_partIndex] call removeDeployableParts; */
     private["_player","_params","_index","_parts","_part"];
     _params = _this;
     _player = _params select 0;
