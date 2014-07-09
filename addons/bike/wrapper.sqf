@@ -114,19 +114,24 @@ getDeployableIndex = {
 };
 
 /* check if player has required parts to build the item */
+/* [player,_partIndex] call getHasDeployableParts; */
 getHasDeployableParts = {
-    /* [player,_partIndex] call getHasDeployableParts; */
-    private["_player","_weapons","_parts","_part","_params","_index","_magazines"];
+    private["_player","_weapons","_parts","_item","_params","_index","_part","_return","_inventory"];
     _params    = _this;
     _player    = _params select 0;
     _index     = _params select 1;
     _parts     = _index call getDeployableParts;
     _inventory = (weapons _player) + (magazines _player);
+    _return    = true;
     {
         _part = _x;
-        if(!(_part in _inventory)) exitWith {false;};
-        _inventory = _inventory - [_part];
+        if(!(_part in _inventory)) exitWith {_return = false;};
+        {
+            _item = _x;
+            if(_item == _part) exitWith {_inventory set [_forEachIndex,"nil"];};
+        } forEach _inventory;
     } forEach _parts;
+    _return
 };
 
 /* remove this item's parts from the players inventory */

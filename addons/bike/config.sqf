@@ -18,7 +18,9 @@ DZE_DEPLOYABLES_CONFIG = [
     // deploy some housing items from wood piles in front of the player that are permanent but can be re-packed by anyone
     ["PartWoodPile","CfgMagazines",2,90,5,1,true,true,true,["Land_Rack_EP1","Land_Table_EP1","Land_Shelf_EP1","WoodChair","Park_bench2","Park_bench1"],["PartWoodPile"]],
     // deploy concrete barricades from cinderblocks 2m in front of the player, that are permanent and can only be re-packed by the person who placed them
-    ["CinderBlocks","CfgMagazines",2,0,5,1,false,true,true,["Land_CncBlock","Land_CncBlock_Stripes"],["CinderBlocks"]]
+    ["CinderBlocks","CfgMagazines",2,0,5,1,false,true,true,["Land_CncBlock","Land_CncBlock_Stripes"],["CinderBlocks","CinderBlocks"]],
+    // deploy a mozzie in front of the player from a rotor/engine/fueltank
+    ["ItemToolbox","CfgWeapons",5,270,7,0.1,true,true,true,["CSJ_GyroC"],["PartVRotor","PartEngine","PartFueltank"]]
 ];
 
 DZE_DEPLOYABLE_ADMINS = ["38130182","76561197962680159"];

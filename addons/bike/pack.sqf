@@ -46,8 +46,12 @@ if(_exitWith != "nil" && _exitWith != "admin") exitWith {
 
 // give the stuff back and delete the vehicle
 {
-    player addWeapon _x;
-    player addMagazine _x;
+    if(isClass(configFile >> "CfgWeapons" >> _x)) then {
+        player addWeapon _x;
+    };
+    if(isClass(configFile >> "CfgMagazines" >> _x)) then {
+        player addMagazine _x;
+    };
 } forEach (_deployable call getDeployableParts);
 
 if(_deployable call getPermanent) then {
