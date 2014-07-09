@@ -16,9 +16,9 @@ if(!(isNull _display)) then {
     };
 } forEach [
     [(getPlayerUID player) in DZE_DEPLOYABLE_ADMINS,                                                                   "admin"],
+    [!([player,_this] call getHasDeployableParts),                                                              format["You need %1 to build %2",str (_this call getHasDeployableParts),(_this call getDeployableDisplay)]],
     [!(call fnc_can_do),                                                                                        format["You can't build a %1 right now.",(_this call getDeployableDisplay)]],
     [(player getVariable["combattimeout", 0]) >= time,                                                          format["Can't build a %1 while in combat!",(_this call getDeployableDisplay)]],
-    [!((_this call getDeployableKitClass) in ((weapons player) + (magazines player) + [currentWeapon player])), format["You need a %1 to build a %2!",(_this call getDeployableKitDisplay),(_this call getDeployableDisplay)]],
     [DZE_DEPLOYING,                                                                                                    "You are already building something!"],
     [DZE_PACKING,                                                                                                      "You are already packing something!"]
 ];
@@ -36,7 +36,7 @@ _exitWith = [
     ["(getPlayerUID player) in DZE_DEPLOYABLE_ADMINS",                                                       "admin"],
     ["r_interrupt",                                                                                   format["%1 building interrupted!",(_this call getDeployableDisplay)]],
     ["(player getVariable['combattimeout', 0]) >= time",                                              format["Can't build a %1 while in combat!",(_this call getDeployableDisplay)]],
-    [format["!(('%1') in ((weapons player) + (magazines player)))",_this call getDeployableKitClass], format["Need a %1 to build a %2!",(_this call getDeployableKitDisplay),(_this call getDeployableDisplay)]]
+    [format["!([player,%1] call getHasDeployableParts)",_this],                                       format["You need %1 to build %2",str (_this call getHasDeployableParts),(_this call getDeployableDisplay)]],    
 ] call fnc_bike_crafting_animation;
 
 // if we got an error message, show it and leave the script
@@ -46,8 +46,7 @@ if(_exitWith != "nil" && _exitWith != "admin") exitWith {
 };
 
 // take away all the crafting components and spawn our reward!
-player removeWeapon (_this call getDeployableKitClass);
-player removeMagazine (_this call getDeployableKitClass);
+[player,_this] call removeDeployableParts;
 _object = (_this call getDeployableClass) createVehicle (position player);
 _object setPos (player modelToWorld [0,(_this call getDeployableDistance),0]);
 _object setDir ((getDir player) + (_this call getDeployableDirectionOffset));
