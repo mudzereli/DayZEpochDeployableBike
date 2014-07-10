@@ -1,4 +1,4 @@
-###DEPLOYABLE BIKE 2.4.1
+###DEPLOYABLE BIKE 2.4.2
 
 #####credits: original concept/code by player2/overhaul by mudzereli
 
@@ -33,7 +33,8 @@ then **REMOVE** it!
 -----
 
 ##Change Log
-* 2.4.1 - fix deployed saved vehicles spawning in locked
+* 2.4.2 - updated for new click actions handler build
+* 2.4.1 - fixed deployables spawning in locked after restart
 * 2.4.0 - multi-part deployables. yay!
 * 2.3.1 - big fix on packing temp objects
 * 2.3.0

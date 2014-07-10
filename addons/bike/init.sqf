@@ -1,6 +1,6 @@
 [] spawn {
-    DZE_DEPLOYABLE_VERSION = "2.4.1";
-    DZE_CRV_DEPLOYABLE = 2;
+    DZE_DEPLOYABLE_VERSION = "2.4.2";
+    DZE_CRV_DEPLOYABLE = 3;
 
     diag_log text format["BIKE: loading version %1 ...",DZE_DEPLOYABLE_VERSION];
 
@@ -48,7 +48,7 @@
     };
 
     // register actions with the click actions handler
-    {DZE_CLICK_ACTIONS = DZE_CLICK_ACTIONS + [[(_forEachIndex call getDeployableKitClass),format["Deploy %1",(_forEachIndex call getDeployableDisplay)],format["%1 execVM 'addons\bike\deploy.sqf';",_forEachIndex]]];} forEach DZE_DEPLOYABLES;
+    {DZE_CLICK_ACTIONS = DZE_CLICK_ACTIONS + [[(_forEachIndex call getDeployableKitClass),format["Deploy %1",(_forEachIndex call getDeployableDisplay)],format["%1 execVM 'addons\bike\deploy.sqf';",_forEachIndex],"true"]];} forEach DZE_DEPLOYABLES;
     DZE_DEPLOYING      = false;
     DZE_PACKING        = false;
     
