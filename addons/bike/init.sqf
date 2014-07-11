@@ -1,8 +1,50 @@
-[] spawn {
-    DZE_DEPLOYABLE_VERSION = "2.4.3";
-    DZE_CRV_DEPLOYABLE = 3;
+// included compiles
+call compile preprocessFileLineNumbers "addons\bike\config.sqf";
+call compile preprocessFileLineNumbers "addons\bike\wrapper.sqf";
+call compile preprocessFileLineNumbers "addons\bike\functions.sqf";
 
-    diag_log text format["BIKE: loading version %1 ...",DZE_DEPLOYABLE_VERSION];
+DZE_DEPLOYABLE_VERSION = "2.5";
+DZE_CRV_DEPLOYABLE = 3;
+
+diag_log text format["BIKE: loading version %1 ...",DZE_DEPLOYABLE_VERSION];
+
+player_deploy = compile preprocessFileLineNumbers "addons\bike\player_deploy.sqf";
+
+// inflate deployables
+DZE_DEPLOYABLES = [];
+{
+    private["_class","_distance","_deployables","_packDist","_packOthers","_clearCargo","_permanent","_damage","_needNear","_parts","_requirePlot","_enableSim"];
+    _class       = _x select 0;
+    _distance    = _x select 1;
+    _packDist    = _x select 2;
+    _damage      = _x select 3;
+    _packOthers  = _x select 4;
+    _clearCargo  = _x select 5;
+    _permanent   = _x select 6;
+    _requirePlot = _x select 7;
+    _enableSim   = _x select 8;
+    _deployables = _x select 9;
+    _needNear    = _x select 10;
+    _parts       = _x select 11;
+    {
+        DZE_DEPLOYABLES set [count DZE_DEPLOYABLES,[_class,_distance,_packDist,_damage,_packOthers,_clearCargo,_permanent,_x,_needNear,_parts,_requirePlot,_enableSim]];
+    } forEach _deployables;
+} forEach DZE_DEPLOYABLES_CONFIG;
+
+// if server then we only need to define the safe vehicles for each deployable
+if (isServer) exitWith {
+    diag_log text "BIKE: adding bike to safe vehicle list...";
+    {
+        DZE_safeVehicle = DZE_safeVehicle + [(_forEachIndex call getDeployableClass)];
+        if(!(_forEachIndex call getDeployableSimulation)) then {
+            dayz_allowedObjects set [count dayz_allowedObjects,(_forEachIndex call getDeployableClass)];
+        };
+    } forEach DZE_DEPLOYABLES;
+    //diag_log text format["BIKE: done patching DZE_safeVehicle: %1",str DZE_safeVehicle];
+    //diag_log text format["BIKE: done patching dayz_allowedObjects: %1",str dayz_allowedObjects];
+};
+
+[] spawn {
 
     // call dependency
     call compile preprocessFileLineNumbers "overwrites\click_actions\init.sqf";
@@ -11,40 +53,6 @@
     };
     if (!(isServer) && {DZE_CLICK_ACTIONS_BUILD != DZE_CRV_DEPLOYABLE}) exitWith {
         diag_log text format["BIKE: ERROR -- Click Actions Handler loaded build #%1! Required build #%2!",DZE_CLICK_ACTIONS_BUILD,DZE_CRV_DEPLOYABLE];
-    };
-
-
-    // included compiles
-    call compile preprocessFileLineNumbers "addons\bike\config.sqf";
-    call compile preprocessFileLineNumbers "addons\bike\wrapper.sqf";
-    call compile preprocessFileLineNumbers "addons\bike\functions.sqf";
-
-    // inflate deployables
-    DZE_DEPLOYABLES = [];
-    {
-        private["_class","_type","_distance","_deployables","_dirOffset","_packDist","_packOthers","_clearCargo","_permanent","_damage","_parts"];
-        _class       = _x select 0;
-        _type        = _x select 1;
-        _distance    = _x select 2;
-        _dirOffset   = _x select 3;
-        _packDist    = _x select 4;
-        _damage      = _x select 5;
-        _packOthers  = _x select 6;
-        _clearCargo  = _x select 7;
-        _permanent   = _x select 8;
-        _deployables = _x select 9;
-        _parts       = _x select 10;
-        {
-            DZE_DEPLOYABLES set [count DZE_DEPLOYABLES,[_class,_type,_distance,_dirOffset,_packDist,_damage,_packOthers,_clearCargo,_permanent,_x,_parts]];
-        } forEach _deployables;
-    } forEach DZE_DEPLOYABLES_CONFIG;
-
-    // if server then we only need to define the safe vehicles for each deployable
-    if (isServer) exitWith {
-        diag_log text "BIKE: waiting for safe vehicle list...";
-        waitUntil{!(isNil "DZE_safeVehicle");};
-        diag_log text "BIKE: adding bike to safe vehicle list...";
-        {DZE_safeVehicle = DZE_safeVehicle + [(_forEachIndex call getDeployableClass)];} forEach DZE_DEPLOYABLES;
     };
 
     // register actions with the click actions handler

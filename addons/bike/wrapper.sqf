@@ -5,59 +5,75 @@ getDeployableKitClass = {
     (DZE_DEPLOYABLES select _this) select 0
 };
 
-/* this gets what type of item the kit is*/
-getDeployableKitType = {
-    (DZE_DEPLOYABLES select _this) select 1
-};
 
 /* this gets the distance of the deployable */
-getDeployableDistance = {
-    (DZE_DEPLOYABLES select _this) select 2
-};
-
-/* this gets the direction offset of the deployable (basically this direction)*/
-getDeployableDirectionOffset = {
-    (DZE_DEPLOYABLES select _this) select 3
+getDeployableDistanceOffset = {
+    (DZE_DEPLOYABLES select _this) select 1
 };
 
 /* this gets the distance a player must be to pack the deployable back up */
 getDeployablePackDistance = {
-    (DZE_DEPLOYABLES select _this) select 4
+    (DZE_DEPLOYABLES select _this) select 2
 };
 
 /* if the damage is higher than this, it can't be packed again */
 getDamageLimit = {
-    (DZE_DEPLOYABLES select _this) select 5
+    (DZE_DEPLOYABLES select _this) select 3
 };
 
 /* should players be allowed to pack deployables placed by others? */
 getDeployablePackOthers = {
-    (DZE_DEPLOYABLES select _this) select 6   
+    (DZE_DEPLOYABLES select _this) select 4
 };
 
 /* checks if cargo should be cleared for this item */
 getClearCargo = {
-    (DZE_DEPLOYABLES select _this) select 7
+    (DZE_DEPLOYABLES select _this) select 5
 };
 
 /* should the vehicle be saved permanently to the database */
 getPermanent = {
-    (DZE_DEPLOYABLES select _this) select 8
+    (DZE_DEPLOYABLES select _this) select 6
 };
 
 /* this gets the class of the deployable */
 getDeployableClass = {
-    (DZE_DEPLOYABLES select _this) select 9
+    (DZE_DEPLOYABLES select _this) select 7
+};
+
+getDeployableNeedNearBy = {
+    (DZE_DEPLOYABLES select _this) select 8
 };
 
 /* the parts required to make this item */
 getDeployableParts = {
-    (DZE_DEPLOYABLES select _this) select 10    
+    (DZE_DEPLOYABLES select _this) select 9
+};
+
+/* does the deployable require a plot to build ? */
+getDeployableRequirePlot = {
+    (DZE_DEPLOYABLES select _this) select 10
+};
+
+/* does the object have simulation enabled? */
+getDeployableSimulation = {
+    (DZE_DEPLOYABLES select _this) select 11
 };
 
 /* should players be allowed to pack deployables at all? */
 getDeployablePackAny = {
     ((_this call getDamageLimit) >= 0) || (!(isNull player) && {(getPlayerUID player) in DZE_DEPLOYABLE_ADMINS});   
+};
+
+/* this gets what type of item the kit is*/
+getDeployableKitType = {
+    private["_return"];
+    if(isClass(configFile >> "CfgWeapons" >> (_this call getDeployableKitClass))) then {
+        _return = "CfgWeapons";
+    } else {
+        _return = "CfgMagazines";
+    };
+    _return
 };
 
 /* this is a wrapper function for getting the value of the scroll action */

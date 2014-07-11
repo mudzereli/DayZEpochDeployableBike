@@ -1,4 +1,4 @@
-private["_exitWith","_position","_display","_object"];
+private["_exitWith","_position","_display","_object","_handle"];
 
 _exitWith = "nil";
 
@@ -30,49 +30,25 @@ if(_exitWith != "nil" && _exitWith != "admin") exitWith {
 
 // now we're deploying!
 DZE_DEPLOYING = true;
+DZE_DEPLOYING_SUCCESSFUL = false;
+_handle = (_this call getDeployableClass) spawn player_deploy;
+waitUntil{scriptDone _handle;};
 
-// do the crafting animation until we either finish it or one of these conditions is broken
-_exitWith = [
-    ["(getPlayerUID player) in DZE_DEPLOYABLE_ADMINS",                 "admin"],
-    ["r_interrupt",                                             format["%1 building interrupted!",(_this call getDeployableDisplay)]],
-    ["(player getVariable['combattimeout', 0]) >= time",        format["Can't build a %1 while in combat!",(_this call getDeployableDisplay)]],
-    [format["!([player,%1] call getHasDeployableParts)",_this], format["You need %1 to build %2",str (_this call getDeployableParts),(_this call getDeployableDisplay)]]    
-] call fnc_bike_crafting_animation;
-
-// if we got an error message, show it and leave the script
-if(_exitWith != "nil" && _exitWith != "admin") exitWith {
-    DZE_DEPLOYING = false;
-    taskHint [_exitWith, DZE_COLOR_DANGER, "taskFailed"];
-};
-
-// take away all the crafting components and spawn our reward!
-[player,_this] call removeDeployableParts;
-_object = (_this call getDeployableClass) createVehicle (position player);
-_object setPos (player modelToWorld [0,(_this call getDeployableDistance),0]);
-_object setDir ((getDir player) + (_this call getDeployableDirectionOffset));
-if (_this call getPermanent) then {
-    PVDZE_veh_Publish = [_object,[getDir _object,getPos _object],(_this call getDeployableClass),true,call fnc_perm_deployable_id];
-    publicVariableServer "PVDZE_veh_Publish";
-} else {
-    _object setVariable ["ObjectID", "1", true];
-    _object setVariable ["ObjectUID", "1", true];
-    _object call fnc_set_temp_deployable_id;
-};
-if(_this call getClearCargo) then {
-    clearWeaponCargoGlobal _object;
-    clearMagazineCargoGlobal _object;
-};
 DZE_DEPLOYING = false;
-player reveal _object;
-
-// congrats!
-taskHint [format["You've built a %1!",(_this call getDeployableDisplay)], DZE_COLOR_PRIMARY, "taskDone"];
-
-sleep 10;
-
-// notify of despawn if it's not a permanent vehicle
-if (!(_this call getPermanent)) then { 
-    cutText ["Warning: Deployed vehicles DO NOT SAVE after server restart!", "PLAIN DOWN"]; 
+// if we got an error message, show it and leave the script
+if(!DZE_DEPLOYING_SUCCESSFUL) then {
+    taskHint ["Deploying Failed!", DZE_COLOR_DANGER, "taskFailed"];
 } else {
-    cutText ["This vehicle is permanent and will persist through server restarts!", "PLAIN DOWN"]; 
+    // congrats!
+    taskHint [format["You've built a %1!",(_this call getDeployableDisplay)], DZE_COLOR_PRIMARY, "taskDone"];
+
+    sleep 10;
+
+    // notify of despawn if it's not a permanent vehicle
+    if (!(_this call getPermanent)) then { 
+        cutText ["Warning: Deployed vehicles DO NOT SAVE after server restart!", "PLAIN DOWN"]; 
+    } else {
+        cutText ["This vehicle is permanent and will persist through server restarts!", "PLAIN DOWN"]; 
+    };
 };
+
