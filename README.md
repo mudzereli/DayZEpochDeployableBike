@@ -1,4 +1,4 @@
-###DEPLOYABLE BIKE 2.4.2
+###DEPLOYABLE BIKE 2.4.3
 
 #####credits: original concept/code by player2/overhaul by mudzereli
 
@@ -33,6 +33,7 @@ then **REMOVE** it!
 -----
 
 ##Change Log
+* 2.4.3 - better click actions build conflict detection
 * 2.4.2 - updated for new click actions handler build
 * 2.4.1 - fixed deployables spawning in locked after restart
 * 2.4.0 - multi-part deployables. yay!
