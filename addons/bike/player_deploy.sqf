@@ -231,9 +231,11 @@ if (_hasrequireditem) then {
     };
 
     _object = createVehicle [_classname, _location, [], 0, "CAN_COLLIDE"];
+    //### BEGIN MODIFIED CODE player_deploy
+    _object setVariable["ObjectUID","1",true];
 
     _object attachTo [player,_offset];
-    //### BEGIN MODIFIED CODE player_deploy
+    
     _dir = 0;
     _object setDir _dir;
     //### END MODIFIED CODE: player_deploy

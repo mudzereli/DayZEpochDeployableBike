@@ -48,4 +48,4 @@ DZE_DEPLOYABLES_CONFIG = [
     ["ItemSapphire",[0,2,0],5,1,true,true,true,true,false,["DSHKM_CDF","M2StaticMG","SearchLight_CDF"],[],["ItemSapphire"]]
 ];
 
-DZE_DEPLOYABLE_ADMINS = ["38130182","76561197962680159"];
+DZE_DEPLOYABLE_ADMINS = [];

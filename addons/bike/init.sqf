@@ -3,7 +3,7 @@ call compile preprocessFileLineNumbers "addons\bike\config.sqf";
 call compile preprocessFileLineNumbers "addons\bike\wrapper.sqf";
 call compile preprocessFileLineNumbers "addons\bike\functions.sqf";
 
-DZE_DEPLOYABLE_VERSION = "2.5";
+DZE_DEPLOYABLE_VERSION = "2.5.1";
 DZE_CRV_DEPLOYABLE = 3;
 
 diag_log text format["BIKE: loading version %1 ...",DZE_DEPLOYABLE_VERSION];
