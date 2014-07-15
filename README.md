@@ -1,6 +1,6 @@
-####DEPLOYABLE BIKE 2.5.1
+####DEPLOYABLE BIKE 2.6
 
-**version 2.5.0 adds epoch-style building for deployment!**
+**version 2.6.0 adds custom name mapping and road building options**
 
 Out of the box, it adds a deployable bike with a right click action on a toolbox and a couple other neat deployables.
 
@@ -75,7 +75,7 @@ array parameters
 
  parameter    | description                                                         |  type  | example
 --------------|---------------------------------------------------------------------|--------|--------
-_clickItem    | class name of the item to click on                                  | number | "ItemToolbox"
+_clickItem    | class name of the item to click on                                  | string | "ItemToolbox"
 _deployOffset | [_side,_front,_up] array to offset the deployable when buiding      | array  | [0,2,1]
 _packDistance | how close does the packer need to be to pack the object?            | number | 5
 _damageLimit  | item can't be repacked if damage is > this. (-1 = no re-packing)    | number | 0.1
@@ -84,9 +84,28 @@ _cargo        | clear the cargo of the deployable?                              
 _hive         | write deployable to database?                                       | bool   | false
 _plot         | require a plot from the owner to build the deployable?              | bool   | false
 _simulation   | enable simulation (movement/damage) for the object? (true for cars) | bool   | true
+_road         | allow building on roads?                                            | bool   | true
 _deployables  | array of class names that can be deployed with this method          | array  | ["MMT_Civ"]
 _near         | array of items required nearby to build (workshop/fire/fueltank)    | array  | []
 _parts        | array of parts required to build (will be taken from player)        | array  | ["ItemToolbox"]
+
+#####DZE_DEPLOYABLE_NAME_MAP array
+ 
+format (note no comma after last array entry)
+
+```
+ DZE_DEPLOYABLE_NAME_MAP = [
+     [_class,_name],
+     [_class,_name],
+     [... more ...]
+ ];
+ ```
+ array parameters
+ 
+ parameter    | description                                                         |  type  | example
+--------------|---------------------------------------------------------------------|--------|--------
+_class        | class name of the item you want to replace the name of              | string | "Notebook"
+_name         | new name to display when right clicking                             | string | "Macbook Pro"
 
 -----
 
@@ -113,6 +132,7 @@ Either edit the config file and change the items that are built, or open your ba
 ####Change Log
 version | change
 --------|-------
+ 2.6.0  | road building options, deployable name mapping
  2.5.1  | fix bug where preview item could sometimes disappear before building
  2.5.0  | now uses a modified epoch building system to deploy the objects
  2.4.3  | better click actions build conflict detection
