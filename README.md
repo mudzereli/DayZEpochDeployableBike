@@ -66,8 +66,8 @@ format (note no comma after last array entry)
 
 ```
 DZE_DEPLOYABLES_CONFIG = [
-    [_clickItem,_deployOffset,_packDistance,_damageLimit,_packAny,_cargo,_hive,_plot,_simulation,_deployables,_near,_parts],
-    [_clickItem,_deployOffset,_packDistance,_damageLimit,_packAny,_cargo,_hive,_plot,_simulation,_deployables,_near,_parts],
+    [_clickItem,_deployOffset,_packDistance,_damageLimit,_packAny,_cargo,_hive,_plot,_simulation,_road,_deployables,_near,_parts],
+    [_clickItem,_deployOffset,_packDistance,_damageLimit,_packAny,_cargo,_hive,_plot,_simulation,_road,_deployables,_near,_parts],
     [...more stuff here...]
 ];
 ```
