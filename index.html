@@ -39,16 +39,15 @@
         </div>
 
         <h4>
-<a name="deployable-bike-251" class="anchor" href="#deployable-bike-251"><span class="octicon octicon-link"></span></a>DEPLOYABLE BIKE 2.5.1</h4>
+<a name="deployable-bike-26" class="anchor" href="#deployable-bike-26"><span class="octicon octicon-link"></span></a>DEPLOYABLE BIKE 2.6</h4>
 
-<p><strong>version 2.5.0 adds epoch-style building for deployment!</strong></p>
+<p><strong>version 2.6.0 adds custom name mapping and road building options</strong></p>
 
 <p>Out of the box, it adds a deployable bike with a right click action on a toolbox and a couple other neat deployables.</p>
 
 <p>Really, it can be used to deploy <strong>just about anything</strong>. See the <a href="#configuration">configuration</a> section below.</p>
 
-<p>Here's a gallery showing a bit of what it can do.</p>
-<iframe class="imgur-album" width="100%" height="550" frameborder="0" src="http://imgur.com/a/jH8Lw/embed"></iframe>
+<p>For more samples of what it can do, check out this <a href="http://imgur.com/a/jH8Lw" title="imgur gallery">gallery on imgur</a></p>
 
 <hr><h4>
 <a name="table-of-contents" class="anchor" href="#table-of-contents"><span class="octicon octicon-link"></span></a>Table of Contents</h4>
@@ -134,7 +133,7 @@
 <tr>
 <td>_clickItem</td>
 <td>class name of the item to click on</td>
-<td>number</td>
+<td>string</td>
 <td>"ItemToolbox"</td>
 </tr>
 <tr>
@@ -186,6 +185,12 @@
 <td>true</td>
 </tr>
 <tr>
+<td>_road</td>
+<td>allow building on roads?</td>
+<td>bool</td>
+<td>true</td>
+</tr>
+<tr>
 <td>_deployables</td>
 <td>array of class names that can be deployed with this method</td>
 <td>array</td>
@@ -202,6 +207,41 @@
 <td>array of parts required to build (will be taken from player)</td>
 <td>array</td>
 <td>["ItemToolbox"]</td>
+</tr>
+</tbody>
+</table><h5>
+<a name="dze_deployable_name_map-array" class="anchor" href="#dze_deployable_name_map-array"><span class="octicon octicon-link"></span></a>DZE_DEPLOYABLE_NAME_MAP array</h5>
+
+<p>format (note no comma after last array entry)</p>
+
+<pre><code> DZE_DEPLOYABLE_NAME_MAP = [
+     [_class,_name],
+     [_class,_name],
+     [... more ...]
+ ];
+</code></pre>
+
+<p>array parameters</p>
+
+<table>
+<thead><tr>
+<th>parameter</th>
+<th>description</th>
+<th>type</th>
+<th>example</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>_class</td>
+<td>class name of the item you want to replace the name of</td>
+<td>string</td>
+<td>"Notebook"</td>
+</tr>
+<tr>
+<td>_name</td>
+<td>new name to display when right clicking</td>
+<td>string</td>
+<td>"Macbook Pro"</td>
 </tr>
 </tbody>
 </table><hr><h4>
@@ -234,6 +274,10 @@
 <th>change</th>
 </tr></thead>
 <tbody>
+<tr>
+<td>2.6.0</td>
+<td>road building options, deployable name mapping</td>
+</tr>
 <tr>
 <td>2.5.1</td>
 <td>fix bug where preview item could sometimes disappear before building</td>
