@@ -63,14 +63,14 @@ open **addons\bike\config.sqf** and edit the array.
 #####DZE_DEPLOYABLES_CONFIG array
 
 format (note no comma after last array entry)
+```
+ DZE_DEPLOYABLES_CONFIG = [
+     [_clickItem,_deployOffset,_packDistance,_damageLimit,_packAny,_cargo,_ammo,_hive,_plot,_simulation,_road,_deployables,_near,_parts,_condition],
+     [_clickItem,_deployOffset,_packDistance,_damageLimit,_packAny,_cargo,_ammo,_hive,_plot,_simulation,_road,_deployables,_near,_parts,_condition],
+     [...more stuff here...]
+ ];
+```
 
-```
-DZE_DEPLOYABLES_CONFIG = [
-    [_clickItem,_deployOffset,_packDistance,_damageLimit,_packAny,_cargo,_hive,_plot,_simulation,_road,_deployables,_near,_parts],
-    [_clickItem,_deployOffset,_packDistance,_damageLimit,_packAny,_cargo,_hive,_plot,_simulation,_road,_deployables,_near,_parts],
-    [...more stuff here...]
-];
-```
 array parameters
 
  parameter    | description                                                         |  type  | example
@@ -81,13 +81,15 @@ _packDistance | how close does the packer need to be to pack the object?        
 _damageLimit  | item can't be repacked if damage is > this. (-1 = no re-packing)    | number | 0.1
 _packAny      | can anyone repack the deployable?                                   | bool   | false
 _cargo        | clear the cargo of the deployable?                                  | bool   | false
+_ammo         | should vehicle ammo be cleared? (does not persist through restart)  | bool   | true
 _hive         | write deployable to database?                                       | bool   | false
 _plot         | require a plot from the owner to build the deployable?              | bool   | false
 _simulation   | enable simulation (movement/damage) for the object? (true for cars) | bool   | true
-_road         | allow building on roads?                                            | bool   | true
+_road         | enable road building for this object?                               | bool   | true
 _deployables  | array of class names that can be deployed with this method          | array  | ["MMT_Civ"]
 _near         | array of items required nearby to build (workshop/fire/fueltank)    | array  | []
 _parts        | array of parts required to build (will be taken from player)        | array  | ["ItemToolbox"]
+_condition    | string of code to evaluate to determine whether action is shown     | string | "!(isNull player) && {(getPlayerUID player) in DZE_DEPLOYABLE_ADMINS}"
 
 #####DZE_DEPLOYABLE_NAME_MAP array
  
@@ -132,6 +134,10 @@ Either edit the config file and change the items that are built, or open your ba
 ####Change Log
 version | change
 --------|-------
+ 2.8.0  | option to clear vehicle ammo
+ 2.7.1  | better exit reasons
+ 2.7.0  | option to add condition for showing action in config
+ 2.6.1  | fix for unrideable bikes
  2.6.0  | road building options, deployable name mapping
  2.5.1  | fix bug where preview item could sometimes disappear before building
  2.5.0  | now uses a modified epoch building system to deploy the objects
