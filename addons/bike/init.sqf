@@ -13,7 +13,7 @@ player_deploy = compile preprocessFileLineNumbers "addons\bike\player_deploy.sqf
 // inflate deployables
 DZE_DEPLOYABLES = [];
 {
-    private["_class","_distance","_deployables","_packDist","_packOthers","_clearCargo","_permanent","_damage","_needNear","_parts","_requirePlot","_enableSim","_road"];
+    private["_class","_distance","_deployables","_packDist","_packOthers","_clearCargo","_permanent","_damage","_needNear","_parts","_requirePlot","_enableSim","_road","_condition"];
     _class       = _x select 0;
     _distance    = _x select 1;
     _packDist    = _x select 2;
@@ -27,8 +27,9 @@ DZE_DEPLOYABLES = [];
     _deployables = _x select 10;
     _needNear    = _x select 11;
     _parts       = _x select 12;
+    _condition   = _x select 13;
     {
-        DZE_DEPLOYABLES set [count DZE_DEPLOYABLES,[_class,_distance,_packDist,_damage,_packOthers,_clearCargo,_permanent,_x,_needNear,_parts,_requirePlot,_enableSim,_road]];
+        DZE_DEPLOYABLES set [count DZE_DEPLOYABLES,[_class,_distance,_packDist,_damage,_packOthers,_clearCargo,_permanent,_x,_needNear,_parts,_requirePlot,_enableSim,_road,_condition]];
     } forEach _deployables;
 } forEach DZE_DEPLOYABLES_CONFIG;
 
@@ -57,7 +58,7 @@ if (isServer) exitWith {
     };
 
     // register actions with the click actions handler
-    {DZE_CLICK_ACTIONS = DZE_CLICK_ACTIONS + [[(_forEachIndex call getDeployableKitClass),format["Deploy %1",(_forEachIndex call getDeployableDisplay)],format["%1 execVM 'addons\bike\deploy.sqf';",_forEachIndex],"true"]];} forEach DZE_DEPLOYABLES;
+    {DZE_CLICK_ACTIONS = DZE_CLICK_ACTIONS + [[(_forEachIndex call getDeployableKitClass),format["Deploy %1",(_forEachIndex call getDeployableDisplay)],format["%1 execVM 'addons\bike\deploy.sqf';",_forEachIndex],(_forEachIndex call getDeployableCondition)]];} forEach DZE_DEPLOYABLES;
     DZE_DEPLOYING      = false;
     DZE_PACKING        = false;
     
