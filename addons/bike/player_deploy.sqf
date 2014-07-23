@@ -367,6 +367,8 @@ if (_hasrequireditem) then {
             _dir = getDir _object;
             _position = getPosATL _object;
             //diag_log format["DEBUG BUILDING POS: %1", _position];
+            _object setPos[0,0,0];
+            hideObject _object;
             deleteVehicle _object;
         };
 
@@ -375,6 +377,8 @@ if (_hasrequireditem) then {
             _cancel = true;
             _reason = "You've moved to far away from where you started building (within 5 meters)";
             detach _object;
+            _object setPos[0,0,0];
+            hideObject _object;
             deleteVehicle _object;
         };
 
@@ -383,6 +387,8 @@ if (_hasrequireditem) then {
             _cancel = true;
             _reason = "Cannot move up || down more than 5 meters";
             detach _object;
+            _object setPos[0,0,0];
+            hideObject _object;
             deleteVehicle _object;
         };
 
@@ -391,6 +397,8 @@ if (_hasrequireditem) then {
             _cancel = true;
             _reason = (localize "str_epoch_player_43");
             detach _object;
+            _object setPos[0,0,0];
+            hideObject _object;
             deleteVehicle _object;
         };
 
@@ -399,6 +407,8 @@ if (_hasrequireditem) then {
             _cancel = true;
             _reason = "Cancelled building.";
             detach _object;
+            _object setPos[0,0,0];
+            hideObject _object;
             deleteVehicle _object;
         };
     };
@@ -612,6 +622,8 @@ if (_hasrequireditem) then {
                     //### END MODIFIED CODE: player deploy
                 };
             } else {
+                _tmpbuilt setPos[0,0,0];
+                hideObject _tmpbuilt;
                 deleteVehicle _tmpbuilt;
                 cutText [(localize "str_epoch_player_46") , "PLAIN DOWN"];
             };
@@ -623,6 +635,8 @@ if (_hasrequireditem) then {
                 player playActionNow "stop";
             };
 
+            _tmpbuilt setPos[0,0,0];
+            hideObject _tmpbuilt;
             deleteVehicle _tmpbuilt;
 
             cutText [(localize "str_epoch_player_46") , "PLAIN DOWN"];
