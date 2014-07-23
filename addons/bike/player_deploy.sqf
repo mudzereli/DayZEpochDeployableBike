@@ -157,11 +157,14 @@ _IsNearPlot = count (_findNearestPole);
 // If item is plot pole && another one exists within 45m
 if(_isPole && _IsNearPlot > 0) exitWith {  DZE_ActionInProgress = false; cutText [(localize "str_epoch_player_44") , "PLAIN DOWN"]; };
 
+private["_exitWith"];
 if(_IsNearPlot == 0) then {
 
     // Allow building of plot
     if(_requireplot == 0 || _isLandFireDZ) then {
         _canBuildOnPlot = true;
+    } else {
+        _exitWith = (localize "STR_EPOCH_PLAYER_135");
     };
 
 } else {
@@ -180,6 +183,8 @@ if(_IsNearPlot == 0) then {
         // owner can build anything within his plot except other plots
         if(!_isPole) then {
             _canBuildOnPlot = true;
+        } else {
+            _exitWith = "You can't build a plot within your plot!";
         };
 
     } else {
@@ -189,13 +194,15 @@ if(_IsNearPlot == 0) then {
             // check if friendly to owner
             if(_ownerID in _friendlies) then {
                 _canBuildOnPlot = true;
+            } else {
+                _exitWith = "You can't build on someone else's plot!";
             };
         };
     };
 };
 
 // _message
-if(!_canBuildOnPlot) exitWith {  DZE_ActionInProgress = false; cutText [format[(localize "STR_EPOCH_PLAYER_135"),_needText,_distance] , "PLAIN DOWN"]; };
+if(!_canBuildOnPlot) exitWith {  DZE_ActionInProgress = false; cutText [format[_exitWith,_needText,_distance] , "PLAIN DOWN"]; };
 
 _missing = "";
 _hasrequireditem = true;
