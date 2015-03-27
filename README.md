@@ -1,6 +1,6 @@
-####DEPLOYABLE BIKE 2.8
+####DEPLOYABLE BIKE 2.8.1
 
-**version 2.8.0 adds options for conditional display of actions & options for clearing ammo from vehicles**
+**version 2.8.1 adds options for conditional display of actions & options for clearing ammo from vehicles**
 
 Out of the box, it adds a deployable bike with a right click action on a toolbox and a couple other neat deployables.
 
