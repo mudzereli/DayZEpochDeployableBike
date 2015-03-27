@@ -225,12 +225,16 @@ if (!_hasbuilditem) exitWith {DZE_ActionInProgress = false; cutText [format[(loc
 if (!_hasrequireditem) exitWith {DZE_ActionInProgress = false; cutText [format[(localize "str_epoch_player_137"),_missing] , "PLAIN DOWN"]; };
 if (_hasrequireditem) then {
 
-    _location = [0,0,0];
+    _dir = getdir player;
+    _location = getPos player;
+    _location = [(_location select 0)+8*sin(_dir),(_location select 1)+8*cos(_dir),0]; 
+    //maybe adjust the hight? [x,y,z(0)]
+    
     _isOk = true;
 
     // get inital players position
     _location1 = getPosATL player;
-    _dir = getDir player;
+    //_dir = getDir player;
 
     // if ghost preview available use that instead
     if (_ghost != "") then {
@@ -243,7 +247,7 @@ if (_hasrequireditem) then {
 
     _object attachTo [player,_offset];
     
-    _dir = 0;
+    //_dir = 0;
     _object setDir _dir;
     //### END MODIFIED CODE: player_deploy
 

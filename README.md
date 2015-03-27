@@ -134,6 +134,7 @@ Either edit the config file and change the items that are built, or open your ba
 ####Change Log
 version | change
 --------|-------
+ 2.8.1  | fix from SchwEde that should fix bike not moving. **Thanks SchwEde!!!**
  2.8.0  | option to clear vehicle ammo
  2.7.1  | better exit reasons
  2.7.0  | option to add condition for showing action in config
