@@ -40,11 +40,11 @@ if (isServer) exitWith {
     {
         DZE_safeVehicle = DZE_safeVehicle + [(_forEachIndex call getDeployableClass)];
         if(!(_forEachIndex call getDeployableSimulation)) then {
-            dayz_allowedObjects set [count dayz_allowedObjects,(_forEachIndex call getDeployableClass)];
+            DayZ_SafeObjects set [count DayZ_SafeObjects,(_forEachIndex call getDeployableClass)];
         };
     } forEach DZE_DEPLOYABLES;
     //diag_log text format["BIKE: done patching DZE_safeVehicle: %1",str DZE_safeVehicle];
-    //diag_log text format["BIKE: done patching dayz_allowedObjects: %1",str dayz_allowedObjects];
+    //diag_log text format["BIKE: done patching DayZ_SafeObjects: %1",str DayZ_SafeObjects];
 };
 
 [] spawn {
@@ -80,7 +80,7 @@ if (isServer) exitWith {
             if((local _x) && (parseNumber(_x getVariable["CharacterID","0"]) > 500000)) then {
                 _x setVehicleLock "UNLOCKED";
             };
-        } forEach (allMissionObjects "allVehicles");
+        } forEach vehicles;
     };
 
     while {true} do {

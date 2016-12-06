@@ -2,16 +2,16 @@
     DayZ Base Building
     Made for DayZ Epoch please ask permission to use/edit/distrubute email vbawol@veteranbastards.com.
 */
-private ["_location","_dir","_classname","_item","_hasrequireditem","_missing","_hastoolweapon","_cancel","_reason","_started","_finished","_animState","_isMedic","_dis","_sfx","_hasbuilditem","_tmpbuilt","_onLadder","_isWater","_require","_text","_offset","_IsNearPlot","_isOk","_location1","_location2","_counter","_limit","_proceed","_num_removed","_position","_object","_canBuildOnPlot","_friendlies","_nearestPole","_ownerID","_findNearestPoles","_findNearestPole","_distance","_classnametmp","_ghost","_isPole","_needText","_lockable","_zheightchanged","_rotate","_combination_1","_combination_2","_combination_3","_combination_4","_combination","_combination_1_Display","_combinationDisplay","_zheightdirection","_abort","_isNear","_need","_needNear","_vehicle","_inVehicle","_requireplot","_objHDiff","_isLandFireDZ","_isTankTrap"];
+private ["_location","_dir","_classname","_item","_hasrequireditem","_missing","_hastoolweapon","_cancel","_reason","_started","_finished","_animState","_isMedic","_dis","_sfx","_hasbuilditem","_tmpbuilt","_onLadder","_require","_text","_offset","_IsNearPlot","_isOk","_location1","_location2","_counter","_limit","_proceed","_num_removed","_position","_object","_canBuildOnPlot","_friendlies","_nearestPole","_ownerID","_findNearestPoles","_findNearestPole","_distance","_classnametmp","_ghost","_isPole","_needText","_lockable","_zheightchanged","_rotate","_combination_1","_combination_2","_combination_3","_combination_4","_combination","_combination_1_Display","_combinationDisplay","_zheightdirection","_abort","_isNear","_need","_needNear","_vehicle","_inVehicle","_requireplot","_objHDiff","_isLandFireDZ","_isTankTrap"];
 
-if(DZE_ActionInProgress) exitWith { cutText [(localize "str_epoch_player_40") , "PLAIN DOWN"]; };
-DZE_ActionInProgress = true;
+if(dayz_actionInProgress) exitWith { localize "str_epoch_player_40" call dayz_rollingMessages; };
+dayz_actionInProgress = true;
 
 // disallow building if too many objects are found within 30m
-if((count ((getPosATL player) nearObjects ["All",30])) >= DZE_BuildingLimit) exitWith {DZE_ActionInProgress = false; cutText [(localize "str_epoch_player_41"), "PLAIN DOWN"];};
+_buildables = DZE_maintainClasses + DZE_LockableStorage + ["DZ_buildables","DZ_storage_base"];
+if (count (nearestObjects [getPosATL player,_buildables,30]) >= DZE_BuildingLimit) exitWith {dayz_actionInProgress = false; format[localize "str_epoch_player_41",30] call dayz_rollingMessages;};
 
 _onLadder =     (getNumber (configFile >> "CfgMovesMaleSdr" >> "States" >> (animationState player) >> "onLadder")) == 1;
-_isWater =      dayz_isSwimming;
 _cancel = false;
 _reason = "";
 _canBuildOnPlot = false;
@@ -37,10 +37,10 @@ DZE_cancelBuilding = false;
 call gear_ui_init;
 closeDialog 1;
 
-if (_isWater) exitWith {DZE_ActionInProgress = false; cutText [localize "str_player_26", "PLAIN DOWN"];};
-if (_inVehicle) exitWith {DZE_ActionInProgress = false; cutText [(localize "str_epoch_player_42"), "PLAIN DOWN"];};
-if (_onLadder) exitWith {DZE_ActionInProgress = false; cutText [localize "str_player_21", "PLAIN DOWN"];};
-if (player getVariable["combattimeout", 0] >= time) exitWith {DZE_ActionInProgress = false; cutText [(localize "str_epoch_player_43"), "PLAIN DOWN"];};
+if (dayz_isSwimming) exitWith {dayz_actionInProgress = false; localize "str_player_26" call dayz_rollingMessages;};
+if (_inVehicle) exitWith {dayz_actionInProgress = false; localize "str_epoch_player_42" call dayz_rollingMessages;};
+if (_onLadder) exitWith {dayz_actionInProgress = false; localize "str_player_21" call dayz_rollingMessages;};
+if (player getVariable["combattimeout",0] >= diag_tickTime) exitWith {dayz_actionInProgress = false; localize "str_epoch_player_43" call dayz_rollingMessages;};
 
 _item = _this;
 
@@ -90,7 +90,7 @@ _needNear = _index call getDeployableNeedNearBy;
 
 if(_abort) exitWith {
     cutText [format[(localize "str_epoch_player_135"),_reason,_distance], "PLAIN DOWN"];
-    DZE_ActionInProgress = false;
+    dayz_actionInProgress = false;
 };
 
 //### BEGIN MODIFIED CODE: player_deploy
@@ -155,7 +155,7 @@ _findNearestPole = [];
 _IsNearPlot = count (_findNearestPole);
 
 // If item is plot pole && another one exists within 45m
-if(_isPole && _IsNearPlot > 0) exitWith {  DZE_ActionInProgress = false; cutText [(localize "str_epoch_player_44") , "PLAIN DOWN"]; };
+if(_isPole && _IsNearPlot > 0) exitWith {  dayz_actionInProgress = false; cutText [(localize "str_epoch_player_44") , "PLAIN DOWN"]; };
 
 private["_exitWith"];
 if(_IsNearPlot == 0) then {
@@ -202,7 +202,7 @@ if(_IsNearPlot == 0) then {
 };
 
 // _message
-if(!_canBuildOnPlot) exitWith {  DZE_ActionInProgress = false; cutText [format[_exitWith,_needText,_distance] , "PLAIN DOWN"]; };
+if(!_canBuildOnPlot) exitWith {  dayz_actionInProgress = false; cutText [format[_exitWith,_needText,_distance] , "PLAIN DOWN"]; };
 
 _missing = "";
 _hasrequireditem = true;
@@ -217,12 +217,12 @@ _hasrequireditem = true;
 
 //### BEGIN MODIFIED CODE player_deploy
 //_hasbuilditem = _this in magazines player;
-//if (!_hasbuilditem) exitWith {DZE_ActionInProgress = false; cutText [format[(localize "str_player_31"),_text,"build"] , "PLAIN DOWN"]; };
+//if (!_hasbuilditem) exitWith {dayz_actionInProgress = false; cutText [format[(localize "str_player_31"),_text,"build"] , "PLAIN DOWN"]; };
 _hasbuilditem = [player,_index] call getHasDeployableParts;
-if (!_hasbuilditem) exitWith {DZE_ActionInProgress = false; cutText [format[(localize "str_player_31"),str (_index call getDeployableParts),"build"] , "PLAIN DOWN"]; };
+if (!_hasbuilditem) exitWith {dayz_actionInProgress = false; cutText [format[(localize "str_player_31"),str (_index call getDeployableParts),"build"] , "PLAIN DOWN"]; };
 //### END MODIFIED CODE: player_deploy
 
-if (!_hasrequireditem) exitWith {DZE_ActionInProgress = false; cutText [format[(localize "str_epoch_player_137"),_missing] , "PLAIN DOWN"]; };
+if (!_hasrequireditem) exitWith {dayz_actionInProgress = false; cutText [format[(localize "str_epoch_player_137"),_missing] , "PLAIN DOWN"]; };
 if (_hasrequireditem) then {
 
     _dir = getdir player;
@@ -403,7 +403,7 @@ if (_hasrequireditem) then {
             deleteVehicle _object;
         };
 
-        if (player getVariable["combattimeout", 0] >= time) exitWith {
+        if (player getVariable["inCombat",false]) exitWith {
             _isOk = false;
             _cancel = true;
             _reason = (localize "str_epoch_player_43");
@@ -480,7 +480,7 @@ if (_hasrequireditem) then {
 
         while {_isOk} do {
 
-            [10,10] call dayz_HungerThirst;
+            ["Working",0,[100,15,10,0]] call dayz_NutritionSystem;
             player playActionNow "Medic";
 
             _dis=20;
@@ -503,7 +503,7 @@ if (_hasrequireditem) then {
                     r_doLoop = false;
                     _finished = true;
                 };
-                if (r_interrupt || (player getVariable["combattimeout", 0] >= time)) then {
+                if (r_interrupt || (player getVariable["inCombat",false])) then {
                     r_doLoop = false;
                 };
                 if (DZE_cancelBuilding) exitWith {
@@ -596,8 +596,8 @@ if (_hasrequireditem) then {
                     _tmpbuilt setVariable ["CharacterID",_combination,true];
 
 
-                    PVDZE_obj_Publish = [_combination,_tmpbuilt,[_dir,_location],_classname];
-                    publicVariableServer "PVDZE_obj_Publish";
+                    PVDZ_obj_Publish = [_combination,_tmpbuilt,[_dir,_location],_classname];
+                    publicVariableServer "PVDZ_obj_Publish";
 
                     cutText [format[(localize "str_epoch_player_140"),_combinationDisplay,_text], "PLAIN DOWN", 5];
 
@@ -609,17 +609,17 @@ if (_hasrequireditem) then {
                     //if(_tmpbuilt isKindOf "Land_Fire_DZ") then {
                     //    _tmpbuilt spawn player_fireMonitor;
                     //} else {
-                    //    PVDZE_obj_Publish = [dayz_characterID,_tmpbuilt,[_dir,_location],_classname];
-                    //    publicVariableServer "PVDZE_obj_Publish";
+                    //    PVDZ_obj_Publish = [dayz_characterID,_tmpbuilt,[_dir,_location],_classname];
+                    //    publicVariableServer "PVDZ_obj_Publish";
                     //};
                     if (_index call getPermanent) then {
                         _tmpbuilt call fnc_set_temp_deployable_id;
                         if(_index call getDeployableSimulation) then {
-                            PVDZE_veh_Publish = [_tmpbuilt,[_dir,_position],(_index call getDeployableClass),true,call fnc_perm_deployable_id];
-                            publicVariableServer "PVDZE_veh_Publish";
+                            PVDZE_veh_Publish2 = [_tmpbuilt,[_dir,_position],(_index call getDeployableClass),true,call fnc_perm_deployable_id];
+                            publicVariableServer "PVDZE_veh_Publish2";
                         } else {
-                            PVDZE_obj_Publish = [call fnc_perm_deployable_id,_tmpbuilt,[_dir,_position],(_index call getDeployableClass)];
-                            publicVariableServer "PVDZE_obj_Publish";
+                            PVDZ_obj_Publish = [call fnc_perm_deployable_id,_tmpbuilt,[_dir,_position],(_index call getDeployableClass)];
+                            publicVariableServer "PVDZ_obj_Publish";
                         };
                     } else {
                         _tmpbuilt call fnc_set_temp_deployable_id;
@@ -661,4 +661,4 @@ if (_hasrequireditem) then {
     };
 };
 
-DZE_ActionInProgress = false;
+dayz_actionInProgress = false;

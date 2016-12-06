@@ -18,7 +18,7 @@ if(!(isNull _display)) then {
     [(getPlayerUID player) in DZE_DEPLOYABLE_ADMINS,          "admin"],
     [!([player,_this] call getHasDeployableParts),     format["You need %1 to build %2",str (_this call getDeployableParts),(_this call getDeployableDisplay)]],
     [!(call fnc_can_do),                               format["You can't build a %1 right now.",(_this call getDeployableDisplay)]],
-    [(player getVariable["combattimeout", 0]) >= time, format["Can't build a %1 while in combat!",(_this call getDeployableDisplay)]],
+    [(player getVariable["inCombat",false]), format["Can't build a %1 while in combat!",(_this call getDeployableDisplay)]],
     [DZE_DEPLOYING,                                           "You are already building something!"],
     [DZE_PACKING,                                             "You are already packing something!"]
 ];
