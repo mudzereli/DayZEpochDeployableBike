@@ -71,7 +71,7 @@ if (isServer) exitWith {
 
     // wait for login before we start checking actions
     diag_log text "BIKE: waiting for login...";
-    waitUntil{!isNil "PVDZE_plr_LoginRecord"};
+    waitUntil{!isNil "Dayz_loginCompleted"};
 
     // unlock locked deployable vehicles
     [] spawn {
