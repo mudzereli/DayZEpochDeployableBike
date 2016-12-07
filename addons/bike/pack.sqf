@@ -15,7 +15,7 @@ _isPackingLocked = diag_tickTime - _lastPackTime < 10;
 } forEach [
     [(getPlayerUID player) in DZE_DEPLOYABLE_ADMINS,                   "admin"],
     [!(call fnc_can_do),                                        format["You can't pack your %1 right now.",(_deployable call getDeployableDisplay)]],
-    [(player getVariable["combattimeout", 0]) >= time,          format["Can't pack a %1 while in combat!",(_deployable call getDeployableDisplay)]],
+    [(player getVariable["inCombat",false]),          format["Can't pack a %1 while in combat!",(_deployable call getDeployableDisplay)]],
     [(damage cursorTarget > (_deployable call getDamageLimit)), format["The %1 must be under %2 percent damaged to pack!",(_deployable call getDeployableDisplay),(_deployable call getDamageLimit) * 100]],      
     [_isPackingLocked,                                          format["Someone just tried to pack that %1! Try again in a few seconds.",(_deployable call getDeployableDisplay)]],
     [DZE_PACKING,                                                      "You are already packing something!"],
@@ -35,7 +35,7 @@ DZE_PACKING = true;
 _exitWith = [
     ["(getPlayerUID player) in DZE_DEPLOYABLE_ADMINS",          "admin"],
     ["r_interrupt",                                      format["Packing %1 interrupted!",(_deployable call getDeployableDisplay)]],
-    ["(player getVariable['combattimeout', 0]) >= time", format["Can't pack a %1 while in combat!",(_deployable call getDeployableDisplay)]]
+    ["(player getVariable['inCombat',false])", format["Can't pack a %1 while in combat!",(_deployable call getDeployableDisplay)]]
 ] call fnc_bike_crafting_animation;
 
 // if we got an error message, show it and leave the script
@@ -55,8 +55,8 @@ if(_exitWith != "nil" && _exitWith != "admin") exitWith {
 } forEach (_deployable call getDeployableParts);
 
 if(_deployable call getPermanent) then {
-    PVDZE_obj_Delete = [_cursorTarget getVariable["ObjectID","0"],_cursorTarget getVariable["ObjectUID","0"],player];
-    publicVariableServer "PVDZE_obj_Delete";
+    PVDZ_obj_Destroy = [_cursorTarget getVariable["ObjectID","0"],_cursorTarget getVariable["ObjectUID","0"],player];
+    publicVariableServer "PVDZ_obj_Destroy";
 };
 hideObject _cursorTarget;
 _cursorTarget setPos [0,0,0];
