@@ -1,6 +1,8 @@
-####DEPLOYABLE BIKE 2.8.1
+####DEPLOYABLE BIKE 2.8.2
 
-**version 2.8.1 adds options for conditional display of actions & options for clearing ammo from vehicles**
+**version 2.8.1 updates the code for Epoch Mod 1.0.6. Thanks @ebaydayz!**
+
+**version 2.8.0 adds options for conditional display of actions & options for clearing ammo from vehicles**
 
 Out of the box, it adds a deployable bike with a right click action on a toolbox and a couple other neat deployables.
 
@@ -132,8 +134,10 @@ Either edit the config file and change the items that are built, or open your ba
 -----
 
 ####Change Log
+
 version | change
 --------|-------
+ 2.8.2  | updates for Epoch Mod 1.0.6. **Thanks @ebaydayz!**
  2.8.1  | fix from SchwEde that should fix bike not moving. **Thanks SchwEde!!!**
  2.8.0  | option to clear vehicle ammo
  2.7.1  | better exit reasons
