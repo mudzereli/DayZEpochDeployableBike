@@ -77,8 +77,8 @@ if (isServer) exitWith {
     [] spawn {
         waitUntil {sm_done;};
         {
-            if((local _x) && (parseNumber(_x getVariable["CharacterID","0"]) > 500000)) then {
-                _x setVehicleLock "UNLOCKED";
+            if (parseNumber(_x getVariable["CharacterID","0"]) > 500000) then {
+				[_x,false] call local_lockUnlock;
             };
         } forEach vehicles;
     };

@@ -246,12 +246,12 @@ if (_hasrequireditem) then {
     _object setVariable["ObjectUID","1",true];
 
     _object attachTo [player,_offset];
-    
-    //_dir = 0;
+
+	_position = getPosATL _object;
+	
+	//_dir = 0;
     _object setDir _dir;
     //### END MODIFIED CODE: player_deploy
-
-    _position = getPosATL _object;
 
     cutText [(localize "str_epoch_player_45"), "PLAIN DOWN"];
 
@@ -379,7 +379,6 @@ if (_hasrequireditem) then {
             _position = getPosATL _object;
             //diag_log format["DEBUG BUILDING POS: %1", _position];
             _object setPos[0,0,0];
-            hideObject _object;
             deleteVehicle _object;
         };
 
@@ -389,7 +388,6 @@ if (_hasrequireditem) then {
             _reason = "You've moved to far away from where you started building (within 5 meters)";
             detach _object;
             _object setPos[0,0,0];
-            hideObject _object;
             deleteVehicle _object;
         };
 
@@ -399,7 +397,6 @@ if (_hasrequireditem) then {
             _reason = "Cannot move up || down more than 5 meters";
             detach _object;
             _object setPos[0,0,0];
-            hideObject _object;
             deleteVehicle _object;
         };
 
@@ -409,7 +406,6 @@ if (_hasrequireditem) then {
             _reason = (localize "str_epoch_player_43");
             detach _object;
             _object setPos[0,0,0];
-            hideObject _object;
             deleteVehicle _object;
         };
 
@@ -419,7 +415,6 @@ if (_hasrequireditem) then {
             _reason = "Cancelled building.";
             detach _object;
             _object setPos[0,0,0];
-            hideObject _object;
             deleteVehicle _object;
         };
     };
@@ -637,7 +632,6 @@ if (_hasrequireditem) then {
                 };
             } else {
                 _tmpbuilt setPos[0,0,0];
-                hideObject _tmpbuilt;
                 deleteVehicle _tmpbuilt;
                 cutText [(localize "str_epoch_player_46") , "PLAIN DOWN"];
             };
@@ -650,7 +644,6 @@ if (_hasrequireditem) then {
             };
 
             _tmpbuilt setPos[0,0,0];
-            hideObject _tmpbuilt;
             deleteVehicle _tmpbuilt;
 
             cutText [(localize "str_epoch_player_46") , "PLAIN DOWN"];
@@ -662,3 +655,4 @@ if (_hasrequireditem) then {
 };
 
 dayz_actionInProgress = false;
+'_this setVehicleInit "this setVectorUp [0,0,1];";';

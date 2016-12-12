@@ -58,7 +58,7 @@ if(_deployable call getPermanent) then {
     PVDZ_obj_Destroy = [_cursorTarget getVariable["ObjectID","0"],_cursorTarget getVariable["ObjectUID","0"],player];
     publicVariableServer "PVDZ_obj_Destroy";
 };
-hideObject _cursorTarget;
+
 _cursorTarget setPos [0,0,0];
 deleteVehicle _cursorTarget;
 player removeAction (_deployable call getActionId);
