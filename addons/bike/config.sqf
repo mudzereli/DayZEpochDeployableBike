@@ -26,7 +26,7 @@
 
 DZE_DEPLOYABLES_CONFIG = [
     // deploy a non-permanent bike from a toolbox right in front of the player that can be re-packed by the owner as long as it's under 10% damage
-    ["ItemToolbox",[0,2,1],5,0.1,false,false,false,false,false,true,true,["MMT_Civ"],[],["ItemToolbox"],"true"],
+    ["ItemToolbox",[0,6,1],5,0.1,false,false,false,false,false,true,true,["MMT_Civ"],[],["ItemToolbox"],"true"],
     // deploy fortifications from etool 3 meters in front of player that are permanent until server restart
     //["ItemEtool",[0,3,0],5,-1,false,true,false,true,false,false,["Land_fort_rampart","Fort_StoneWall_EP1","Land_fort_bagfence_round"],[],["ItemEtool"],"true"],
     // deploy a permanent helicopter from ruby 5 meters in front of player that can be re-packed by anyone as long as it's under 10% damage
@@ -41,7 +41,7 @@ DZE_DEPLOYABLES_CONFIG = [
     // deploy concrete barricades from cinderblocks 2m in front of the player, that are permanent and can only be re-packed by the person who placed them
     ["CinderBlocks",[0,2,0],5,1,false,true,false,false,false,true,true,["Hhedgehog_concrete","Land_CncBlock","Land_CncBlock_Stripes"],[],["CinderBlocks"],"true"],
     // deploy a mozzie in front of the player from a rotor/engine/fueltank
-    ["ItemToolbox",[0,5,2],7,0.1,true,true,false,true,false,true,true,["CSJ_GyroC"],[],["PartVRotor","PartEngine","PartFueltank"],"true"],
+    ["ItemToolbox",[0,8,2],7,0.1,true,true,false,true,false,true,true,["CSJ_GyroC"],[],["PartVRotor","PartEngine","PartFueltank"],"true"],
     ["ItemToolbox",[0,10,0],5,-1,false,true,false,true,true,false,false,["Land_Mil_Guardhouse"],[],["cinder_wall_kit","cinder_wall_kit","cinder_wall_kit","cinder_door_kit"],"false"],
     ["ItemCrowbar",[0,6,0],5,-1,false,true,false,true,true,false,false,["Land_Misc_Cargo1Ao","Land_Misc_Cargo1Bo"],[],["metal_panel_kit","metal_panel_kit","metal_panel_kit","metal_panel_kit"],"true"]
     //["ItemEtool",[0,8,0],5,-1,false,true,true,true,false,false,["Land_Fort_Watchtower"],[],["forest_large_net_kit","ItemSandbagExLarge5x","ItemSandbagExLarge5x","ItemSandbagExLarge5x"],"true"],
