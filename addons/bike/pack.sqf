@@ -55,7 +55,7 @@ if(_exitWith != "nil" && _exitWith != "admin") exitWith {
 } forEach (_deployable call getDeployableParts);
 
 if(_deployable call getPermanent) then {
-    PVDZ_obj_Destroy = [_cursorTarget getVariable["ObjectID","0"],_cursorTarget getVariable["ObjectUID","0"],player];
+    PVDZ_obj_Destroy = [_cursorTarget getVariable["ObjectID","0"],_cursorTarget getVariable["ObjectUID","0"],player,_cursorTarget,dayz_authKey];
     publicVariableServer "PVDZ_obj_Destroy";
 };
 

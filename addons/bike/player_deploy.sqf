@@ -89,7 +89,7 @@ _needNear = _index call getDeployableNeedNearBy;
 
 
 if(_abort) exitWith {
-    cutText [format[(localize "str_epoch_player_135"),_reason,_distance], "PLAIN DOWN"];
+    format[localize "str_epoch_player_135",_reason,_distance] call dayz_rollingMessages;
     dayz_actionInProgress = false;
 };
 
@@ -590,13 +590,15 @@ if (_hasrequireditem) then {
 
                     _tmpbuilt setVariable ["CharacterID",_combination,true];
 
-
-                    PVDZ_obj_Publish = [_combination,_tmpbuilt,[_dir,_location],_classname];
-                    publicVariableServer "PVDZ_obj_Publish";
-
+					if (DZE_permanentPlot) then {
+						_tmpbuilt setVariable ["ownerPUID",dayz_playerUID,true];
+						PVDZ_obj_Publish = [_combination,_tmpbuilt,[_dir,_location,dayz_playerUID],[],player,dayz_authKey];
+					} else {
+						PVDZ_obj_Publish = [_combination,_tmpbuilt,[_dir,_location],[],player,dayz_authKey];
+					};
+					
+					publicVariableServer "PVDZ_obj_Publish";
                     cutText [format[(localize "str_epoch_player_140"),_combinationDisplay,_text], "PLAIN DOWN", 5];
-
-
                 } else {
                     //_tmpbuilt setVariable ["CharacterID",dayz_characterID,true];
                     //### BEGIN MODIFIED CODE: player deploy
@@ -610,11 +612,16 @@ if (_hasrequireditem) then {
                     if (_index call getPermanent) then {
                         _tmpbuilt call fnc_set_temp_deployable_id;
                         if(_index call getDeployableSimulation) then {
-                            PVDZE_veh_Publish2 = [_tmpbuilt,[_dir,_position],(_index call getDeployableClass),true,call fnc_perm_deployable_id];
+                            PVDZE_veh_Publish2 = [[_dir,_position],(_index call getDeployableClass),true,call fnc_perm_deployable_id,player,dayz_authKey];
                             publicVariableServer "PVDZE_veh_Publish2";
                         } else {
-                            PVDZ_obj_Publish = [call fnc_perm_deployable_id,_tmpbuilt,[_dir,_position],(_index call getDeployableClass)];
-                            publicVariableServer "PVDZ_obj_Publish";
+							if (DZE_permanentPlot) then {
+								_tmpbuilt setVariable ["ownerPUID",dayz_playerUID,true];
+								PVDZ_obj_Publish = [call fnc_perm_deployable_id,_tmpbuilt,[_dir,_position,dayz_playerUID],[],player,dayz_authKey];
+							} else {
+								PVDZ_obj_Publish = [call fnc_perm_deployable_id,_tmpbuilt,[_dir,_position],[],player,dayz_authKey];
+							};
+							publicVariableServer "PVDZ_obj_Publish";
                         };
                     } else {
                         _tmpbuilt call fnc_set_temp_deployable_id;
@@ -655,4 +662,3 @@ if (_hasrequireditem) then {
 };
 
 dayz_actionInProgress = false;
-'_this setVehicleInit "this setVectorUp [0,0,1];";';

@@ -1,6 +1,6 @@
-####DEPLOYABLE BIKE 2.8.2
+#### DEPLOYABLE BIKE 2.8.2
 
-**version 2.8.1 updates the code for Epoch Mod 1.0.6. Thanks @ebaydayz!**
+**version 2.8.1 updates the code for Epoch Mod 1.0.6. Thanks @ebayShopper!**
 
 **version 2.8.0 adds options for conditional display of actions & options for clearing ammo from vehicles**
 
@@ -12,7 +12,7 @@ For more samples of what it can do, check out this [gallery on imgur](http://img
 
 -----
 
-####Table of Contents
+#### Table of Contents
 
 * [Features](#features)
 * [Planned](#planned)
@@ -23,7 +23,7 @@ For more samples of what it can do, check out this [gallery on imgur](http://img
 
 -----
 
-####Features
+#### Features
 
 * deploy cars/vehicles/props
 * optional database saving
@@ -35,13 +35,13 @@ For more samples of what it can do, check out this [gallery on imgur](http://img
 
 -----
 
-####Planned
+#### Planned
 * even better positioning when deploying
 * possible ui overhaul
 
 -----
 
-####Installation
+#### Installation
 
  1. [download the files](https://github.com/mudzereli/DayZEpochDeployableBike/archive/master.zip "download files")
  2. extract the **addons** and **overwrites** folder from the downloaded zip file into **your mission file root**
@@ -51,21 +51,21 @@ For more samples of what it can do, check out this [gallery on imgur](http://img
    * ```call compile preprocessFileLineNumbers "addons\bike\init.sqf";```
  4. edit **addons\bike\config.sqf** to change some options or add different deployables ([see configuration section for more info](#configuration))
 
-#####Warning:
+##### Warning:
 - due to the way the way arma handles numbers and the way addon is coded, using the save-to-database option may not allow you to re-pack some objects if you have Character ID's over 500,000 (which I don't think will be an issue for 99.99% of people). 
 
 -----
 
-####Configuration
+#### Configuration
 
 This addon is highly configurable, you can deploy just about anything, not just bikes. 
 
 open **addons\bike\config.sqf** and edit the array.
 
-#####DZE_DEPLOYABLES_CONFIG array
+##### DZE_DEPLOYABLES_CONFIG array
 
 format (note no comma after last array entry)
-```
+```sqf
  DZE_DEPLOYABLES_CONFIG = [
      [_clickItem,_deployOffset,_packDistance,_damageLimit,_packAny,_cargo,_ammo,_hive,_plot,_simulation,_road,_deployables,_near,_parts,_condition],
      [_clickItem,_deployOffset,_packDistance,_damageLimit,_packAny,_cargo,_ammo,_hive,_plot,_simulation,_road,_deployables,_near,_parts,_condition],
@@ -93,7 +93,7 @@ _near         | array of items required nearby to build (workshop/fire/fueltank)
 _parts        | array of parts required to build (will be taken from player)        | array  | ["ItemToolbox"]
 _condition    | string of code to evaluate to determine whether action is shown     | string | "!(isNull player) && {(getPlayerUID player) in DZE_DEPLOYABLE_ADMINS}"
 
-#####DZE_DEPLOYABLE_NAME_MAP array
+##### DZE_DEPLOYABLE_NAME_MAP array
  
 format (note no comma after last array entry)
 
@@ -113,7 +113,7 @@ _name         | new name to display when right clicking                         
 
 -----
 
-####FAQ
+#### FAQ
 
 1) People are getting kicked for createvehicle restriction when building things, what do I do?
 
@@ -133,7 +133,7 @@ Either edit the config file and change the items that are built, or open your ba
 
 -----
 
-####Change Log
+#### Change Log
 
 version | change
 --------|-------

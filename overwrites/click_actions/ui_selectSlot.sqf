@@ -1,4 +1,3 @@
-//private ["_control","_button","_parent","_group","_pos","_item","_conf","_name","_cfgActions","_numActions","_height","_menu","_config","_type","_script","_outputOriented","_compile","_array","_outputClass","_outputType"];
 disableSerialization;
 _control = _this select 0;
 _button = _this select 1;
@@ -7,16 +6,22 @@ _parent = findDisplay 106;
 if (carryClick) then {carryClick = false;};
 
 if (_button == 1) then {
+	if (animationState player in ["ainjppnemstpsnonwnondnon_rolltofront","amovppnemstpsnonwnondnon_healed"]) exitWith {
+		//Prevent bypassing unconscious wake up animation with bandage or other right click actions
+		localize "str_player_actionslimit" call dayz_rollingMessages;
+	};
+
 	private ["_conf","_name","_compile","_height","_item"];
 	_group = _parent displayCtrl 6902;
 
 	_pos = ctrlPosition _group;
 
-	_item = gearSlotData _control;	
+	_item = gearSlotData _control;
 	if ( //No right click action
 		(!DZE_SelfTransfuse && _item in ["ItemBloodbag","wholeBloodBagANEG","wholeBloodBagAPOS","wholeBloodBagBNEG","wholeBloodBagBPOS","wholeBloodBagABNEG","wholeBloodBagABPOS","wholeBloodBagONEG","wholeBloodBagOPOS"]) or
 		(!dayz_groupSystem && _item == "ItemRadio")
 	) exitWith {};
+	
 	if (mouseOverCarry) then {
 		_item = DayZ_onBack;
 		carryClick = true;
@@ -64,14 +69,11 @@ if (_button == 1) then {
 		_menu ctrlSetEventHandler ["ButtonClick",_compile];
 	};
 	
-	
-	
-	
 	//### BEGIN MODIFIED CODE: extra click actions
 	{
 		private["_classname","_text","_execute","_condition"];
 		_classname   = _x select 0;
-	    _text        = _x select 1;
+		_text        = _x select 1;
 		_execute     = _x select 2;
 		_condition   = _x select 3;
 		// if the clicked item matches, then assign the script call and display text
@@ -85,11 +87,7 @@ if (_button == 1) then {
 			_numActions = _numActions + 1;
 		};
 	} forEach DZE_CLICK_ACTIONS;
-	//### END MODIFIED CODE: extra click actions
-	
-	
-	
-	
+    //### END MODIFIED CODE: extra click actions
 	_pos set [3,_height];
 
 	//hint format["Obj: %1 \nHeight: %2\nPos: %3",_item,_height,_grpPos];
